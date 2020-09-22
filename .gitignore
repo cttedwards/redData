@@ -1,0 +1,9 @@
+data-raw/*.csv
+vignettes/fig
+vignettes/*.R
+vignettes/.build.timestamp
+man/*.Rd
+*.Rproj
+.Rproj.user
+*.zip
+*.tar.gz

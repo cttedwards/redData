@@ -1,7 +1,5 @@
-red
-===
+redData
+========
 
-Red-list elephant dynamics
-
-The `red` package fits a regression based population dynamics model to elephant survey data.
+This package contains the data and cleaning code to accompany the the `red` package.
 

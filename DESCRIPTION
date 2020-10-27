@@ -3,7 +3,7 @@ Type: Package
 Title: Red-list African elephant data
 Version: 0.0.4
 Date: 2020-09-22
-Author: Charles T T Edwards
+Author: AERL assessment team
 Maintainer: Charles T T Edwards <cescapecs@gmail.com>
 Description: Data for African elephant red-list assessment.
 License: GPL (>=3)

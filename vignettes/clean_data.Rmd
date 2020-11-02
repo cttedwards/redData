@@ -15,7 +15,9 @@ vignette: >
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(fig.path = 'fig/clean-', fig.width = 6, tidy = TRUE, tidy.opts = list(blank = TRUE, width.cutoff = 120), message = FALSE, warning = FALSE, collapse = TRUE, comment = "#>")
 options(rmarkdown.html_vignette.check_title = FALSE)
-require(plyr)
+
+suppressPackageStartupMessages(library(plyr))
+suppressPackageStartupMessages(library(pander))
 ```
 
 ```{r, echo=TRUE}
@@ -160,8 +162,8 @@ The following simple data quality checks were performed:
 4) Delete records with reliabilty = E
 5) Sum survey data from same year and zone to give average density
 
-```{r}
-print(tab, row.names = FALSE)
+```{r, results = "asis"}
+pandoc.table(tab, style = "rmarkdown")
 ```
 
 # Data cleaning
@@ -189,7 +191,7 @@ If `survey_area_shrinkage == TRUE` and `any(diff_from_mode_D20) == TRUE` then th
 If `use_max == FALSE` and `diff_from_mode_D40 = TRUE` then that particular survey was deleted (i.e. `delete = TRUE`).
 
 
-```{r}
+```{r, results = "asis"}
 # for each country print summary stats and plots
 
 for (i in countries) {
@@ -202,9 +204,8 @@ for (i in countries) {
                  yrs_total = paste(range(year), collapse = "-"))
 
     print(paste("Summary data for", i))
-    print(tab, row.names = FALSE)
+    pandoc.table(tab, style = "rmarkdown")
     print("")
-    
 }
 ```
 

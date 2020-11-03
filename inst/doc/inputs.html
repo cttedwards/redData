@@ -12,7 +12,7 @@
 
 <meta name="author" content="Charles T T Edwards (Wellington, New Zealand)" />
 
-<meta name="date" content="2020-09-22" />
+<meta name="date" content="2020-11-03" />
 
 <title>Data preparation</title>
 
@@ -319,7 +319,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 <h1 class="title toc-ignore">Data preparation</h1>
 <h4 class="author">Charles T T Edwards (Wellington, New Zealand)</h4>
-<h4 class="date">2020-09-22</h4>
+<h4 class="date">2020-11-03</h4>
 
 
 
@@ -327,7 +327,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <div id="preliminaries" class="section level1">
 <h1>Preliminaries</h1>
 <p>Load data and subset.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">data</span>(AED, <span class="dt">package =</span> <span class="st">&quot;red&quot;</span>)</span>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">data</span>(AED, <span class="dt">package =</span> <span class="st">&quot;redData&quot;</span>)</span>
 <span id="cb2-2"><a href="#cb2-2"></a></span>
 <span id="cb2-3"><a href="#cb2-3"></a>dat_global &lt;-<span class="st"> </span>AED[, <span class="kw">c</span>(<span class="st">&quot;region&quot;</span>, <span class="st">&quot;country&quot;</span>, <span class="st">&quot;year&quot;</span>, <span class="st">&quot;zone&quot;</span>, <span class="st">&quot;estimate&quot;</span>, <span class="st">&quot;survey_area&quot;</span>, <span class="st">&quot;modal_survey_area&quot;</span>, </span>
 <span id="cb2-4"><a href="#cb2-4"></a>    <span class="st">&quot;density&quot;</span>, <span class="st">&quot;n_surveys&quot;</span>)]</span></code></pre></div>
@@ -421,7 +421,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb4-78"><a href="#cb4-78"></a>areas &lt;-<span class="st"> </span>reshape2<span class="op">::</span><span class="kw">acast</span>(areas, year <span class="op">~</span><span class="st"> </span>zone, <span class="dt">fun.aggregate =</span> <span class="cf">function</span>(x) <span class="kw">mean</span>(x, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), </span>
 <span id="cb4-79"><a href="#cb4-79"></a>    <span class="dt">value.var =</span> <span class="st">&quot;survey_area&quot;</span>, <span class="dt">fill =</span> <span class="kw">as.numeric</span>(<span class="ot">NA</span>), <span class="dt">drop =</span> <span class="ot">FALSE</span>)</span>
 <span id="cb4-80"><a href="#cb4-80"></a></span>
-<span id="cb4-81"><a href="#cb4-81"></a>areas &lt;-<span class="st"> </span><span class="kw">apply</span>(areas, <span class="dv">2</span>, red<span class="op">::</span>fill, <span class="dt">complete =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb4-81"><a href="#cb4-81"></a>areas &lt;-<span class="st"> </span><span class="kw">apply</span>(areas, <span class="dv">2</span>, redData<span class="op">::</span>fill, <span class="dt">complete =</span> <span class="ot">TRUE</span>)</span>
 <span id="cb4-82"><a href="#cb4-82"></a></span>
 <span id="cb4-83"><a href="#cb4-83"></a><span class="kw">stopifnot</span>(<span class="kw">all</span>(<span class="kw">colnames</span>(areas) <span class="op">==</span><span class="st"> </span>zones))</span>
 <span id="cb4-84"><a href="#cb4-84"></a></span>

@@ -1,8 +1,8 @@
 Package: redData
 Type: Package
 Title: Red-list African elephant data
-Version: 0.0.4
-Date: 2020-09-22
+Version: 0.0.16
+Date: 2020-11-03
 Author: AERL assessment team
 Maintainer: Charles T T Edwards <cescapecs@gmail.com>
 Description: Data for African elephant red-list assessment.

@@ -108,8 +108,8 @@ for (i in countries) {
     # and survey is flagged as "max" then use max survey area for all years
     dfr.tmp <- ddply(dfr, .(zone), summarize, region = region, year = year, survey_area = survey_area, 
                      max_survey_area = rep(max(survey_area), length(survey_area)),
-                     diff_from_mode_D20 = !red::trim(x = survey_area, delta = 0.2)[['trim']], 
-                     modal_survey_area = rep(red::trim(x = survey_area), length = length(survey_area)),
+                     diff_from_mode_D20 = !redData::trim(x = survey_area, delta = 0.2)[['trim']], 
+                     modal_survey_area = rep(redData::trim(x = survey_area), length = length(survey_area)),
                      use_max = ifelse(any(diff_from_mode_D20) & survey_area_shrinkage, TRUE, FALSE))
     
     dfr <- merge(dfr, dfr.tmp, all.x = TRUE)
@@ -118,7 +118,7 @@ for (i in countries) {
 	  # have not had the survey area replaced by the max and 
 	  # mark for deletion
     dfr.tmp <- ddply(dfr, .(zone), summarize, region = region, year = year, survey_area = survey_area,
-                     diff_from_mode_D40 = !red::trim(x = survey_area, delta = 0.4)[['trim']], 
+                     diff_from_mode_D40 = !redData::trim(x = survey_area, delta = 0.4)[['trim']], 
                      delete_revised = ifelse(diff_from_mode_D40 & !use_max, TRUE, FALSE),
 					           delete = ifelse(diff_from_mode_D40, TRUE, FALSE))
     
@@ -163,7 +163,7 @@ The following simple data quality checks were performed:
 5) Sum survey data from same year and zone to give average density
 
 ```{r, results = "asis"}
-pandoc.table(tab, style = "rmarkdown")
+pandoc.table(tab, style = "rmarkdown", split.tables = Inf)
 ```
 
 # Data cleaning
@@ -204,8 +204,7 @@ for (i in countries) {
                  yrs_total = paste(range(year), collapse = "-"))
 
     print(paste("Summary data for", i))
-    pandoc.table(tab, style = "rmarkdown")
-    print("")
+    pandoc.table(tab, style = "rmarkdown", split.tables = Inf)
 }
 ```
 

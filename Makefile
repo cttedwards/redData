@@ -19,7 +19,7 @@ endif
 all: document install clean
 
 ./inst/doc/*.html: ./vignettes/*.Rmd
-	$(CD) vignettes; Rcmd Sweave clean_data.Rmd; Rcmd Sweave inputs.Rmd
+	$(CD) vignettes; Rcmd Sweave clean_data.Rmd; Rcmd Sweave inputs_rla.Rmd; Rcmd Sweave inputs_ms.Rmd
 	$(CP) ./vignettes/*.html ./inst/doc/
     
 install: $(PKG_FILES) ./inst/doc/*.html ./data/*.rda

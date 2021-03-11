@@ -49,9 +49,6 @@ tmp <- ddply(dat, .(input_zone2), summarize, survey_area_shrinkage = any(flags =
 dat <- merge(dat, tmp, by = "input_zone2")
 dat$flags <- NULL
 
-# only use data up to 2015
-dat <- subset(dat, year < 2016)
-
 # coerce data
 dat$year        <- as.integer(as.character(dat$year))
 dat$estimate    <- as.numeric(as.character(dat$estimate))

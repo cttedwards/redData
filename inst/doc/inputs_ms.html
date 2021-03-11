@@ -12,9 +12,9 @@
 
 <meta name="author" content="Charles T T Edwards (Wellington, New Zealand)" />
 
-<meta name="date" content="2020-11-03" />
+<meta name="date" content="2020-12-30" />
 
-<title>Data preparation</title>
+<title>Data preparation for manuscript</title>
 
 <script>// Hide empty <a> tag within highlighted CodeBlock for screen reader accessibility (see https://github.com/jgm/pandoc/issues/6352#issuecomment-626106786) -->
 // v0.0.1
@@ -32,6 +32,54 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 </script>
+<style type="text/css">
+a.anchor-section {margin-left: 10px; visibility: hidden; color: inherit;}
+a.anchor-section::before {content: '#';}
+.hasAnchor:hover a.anchor-section {visibility: visible;}
+</style>
+<script>// Anchor sections v1.0 written by Atsushi Yasumoto on Oct 3rd, 2020.
+document.addEventListener('DOMContentLoaded', function() {
+  // Do nothing if AnchorJS is used
+  if (typeof window.anchors === 'object' && anchors.hasOwnProperty('hasAnchorJSLink')) {
+    return;
+  }
+
+  const h = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
+
+  // Do nothing if sections are already anchored
+  if (Array.from(h).some(x => x.classList.contains('hasAnchor'))) {
+    return null;
+  }
+
+  // Use section id when pandoc runs with --section-divs
+  const section_id = function(x) {
+    return ((x.classList.contains('section') || (x.tagName === 'SECTION'))
+            ? x.id : '');
+  };
+
+  // Add anchors
+  h.forEach(function(x) {
+    const id = x.id || section_id(x.parentElement);
+    if (id === '') {
+      return null;
+    }
+    let anchor = document.createElement('a');
+    anchor.href = '#' + id;
+    anchor.classList = ['anchor-section'];
+    x.classList.add('hasAnchor');
+    x.appendChild(anchor);
+  });
+});
+</script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
 
 
 <style type="text/css">code{white-space: pre;}</style>
@@ -317,9 +365,9 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 
 
-<h1 class="title toc-ignore">Data preparation</h1>
+<h1 class="title toc-ignore">Data preparation for manuscript</h1>
 <h4 class="author">Charles T T Edwards (Wellington, New Zealand)</h4>
-<h4 class="date">2020-11-03</h4>
+<h4 class="date">2020-12-30</h4>
 
 
 
@@ -443,10 +491,10 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb4-100"><a href="#cb4-100"></a><span class="co"># inputs_forest &lt;- dat save(inputs_forest, file = &#39;../data/inputs_forest.rda&#39;)</span></span>
 <span id="cb4-101"><a href="#cb4-101"></a></span>
 <span id="cb4-102"><a href="#cb4-102"></a><span class="co"># save regression input data</span></span>
-<span id="cb4-103"><a href="#cb4-103"></a>forest &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">N =</span> N, <span class="dt">Y =</span> Y, <span class="dt">S =</span> S, <span class="dt">C =</span> C, <span class="dt">XY =</span> X<span class="op">$</span>Y, <span class="dt">XC =</span> X<span class="op">$</span>C, <span class="dt">XS =</span> X<span class="op">$</span>S, <span class="dt">y =</span> dat<span class="op">$</span>density, <span class="dt">start =</span> start, </span>
-<span id="cb4-104"><a href="#cb4-104"></a>    <span class="dt">survey_area =</span> <span class="kw">t</span>(areas), <span class="dt">range_area =</span> modal_areas<span class="op">$</span>max_modal_survey_area, <span class="dt">use_relative_survey_area =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb4-103"><a href="#cb4-103"></a>forest &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">N =</span> N, <span class="dt">Y =</span> Y, <span class="dt">S =</span> S, <span class="dt">C =</span> C, <span class="dt">XY =</span> X<span class="op">$</span>Y, <span class="dt">XC =</span> X<span class="op">$</span>C, <span class="dt">XS =</span> X<span class="op">$</span>S, <span class="dt">y =</span> dat<span class="op">$</span>estimate, <span class="dt">start =</span> start, </span>
+<span id="cb4-104"><a href="#cb4-104"></a>    <span class="dt">survey_area =</span> <span class="kw">t</span>(areas))</span>
 <span id="cb4-105"><a href="#cb4-105"></a></span>
-<span id="cb4-106"><a href="#cb4-106"></a><span class="kw">save</span>(forest, dat, <span class="dt">file =</span> <span class="st">&quot;../data/forest.rda&quot;</span>)</span></code></pre></div>
+<span id="cb4-106"><a href="#cb4-106"></a><span class="kw">save</span>(forest, dat, <span class="dt">file =</span> <span class="st">&quot;../data/fms.rda&quot;</span>)</span></code></pre></div>
 </div>
 <div id="savannah" class="section level1">
 <h1>Savannah</h1>
@@ -458,10 +506,25 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb5-6"><a href="#cb5-6"></a><span class="co"># Start of decline</span></span>
 <span id="cb5-7"><a href="#cb5-7"></a>year_N0 &lt;-<span class="st"> </span><span class="dv">1965</span></span></code></pre></div>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># save regression input data</span></span>
-<span id="cb6-2"><a href="#cb6-2"></a>savannah &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">N =</span> N, <span class="dt">Y =</span> Y, <span class="dt">S =</span> S, <span class="dt">C =</span> C, <span class="dt">XY =</span> X<span class="op">$</span>Y, <span class="dt">XC =</span> X<span class="op">$</span>C, <span class="dt">XS =</span> X<span class="op">$</span>S, <span class="dt">y =</span> dat<span class="op">$</span>density, <span class="dt">start =</span> start, </span>
-<span id="cb6-3"><a href="#cb6-3"></a>    <span class="dt">survey_area =</span> <span class="kw">t</span>(areas), <span class="dt">range_area =</span> modal_areas<span class="op">$</span>max_modal_survey_area, <span class="dt">use_relative_survey_area =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb6-2"><a href="#cb6-2"></a>savannah &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">N =</span> N, <span class="dt">Y =</span> Y, <span class="dt">S =</span> S, <span class="dt">C =</span> C, <span class="dt">XY =</span> X<span class="op">$</span>Y, <span class="dt">XC =</span> X<span class="op">$</span>C, <span class="dt">XS =</span> X<span class="op">$</span>S, <span class="dt">y =</span> dat<span class="op">$</span>estimate, <span class="dt">start =</span> start, </span>
+<span id="cb6-3"><a href="#cb6-3"></a>    <span class="dt">survey_area =</span> <span class="kw">t</span>(areas))</span>
 <span id="cb6-4"><a href="#cb6-4"></a></span>
-<span id="cb6-5"><a href="#cb6-5"></a><span class="kw">save</span>(savannah, dat, <span class="dt">file =</span> <span class="st">&quot;../data/savannah.rda&quot;</span>)</span></code></pre></div>
+<span id="cb6-5"><a href="#cb6-5"></a><span class="kw">save</span>(savannah, dat, <span class="dt">file =</span> <span class="st">&quot;../data/sms.rda&quot;</span>)</span></code></pre></div>
+</div>
+<div id="global" class="section level1">
+<h1>Global</h1>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>dat &lt;-<span class="st"> </span>dat_global</span>
+<span id="cb7-2"><a href="#cb7-2"></a></span>
+<span id="cb7-3"><a href="#cb7-3"></a><span class="co"># Start of model</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a>year_start &lt;-<span class="st"> </span><span class="dv">1963</span></span>
+<span id="cb7-5"><a href="#cb7-5"></a></span>
+<span id="cb7-6"><a href="#cb7-6"></a><span class="co"># Start of decline</span></span>
+<span id="cb7-7"><a href="#cb7-7"></a>year_N0 &lt;-<span class="st"> </span><span class="dv">1965</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># save regression input data</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>global &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">N =</span> N, <span class="dt">Y =</span> Y, <span class="dt">S =</span> S, <span class="dt">C =</span> C, <span class="dt">XY =</span> X<span class="op">$</span>Y, <span class="dt">XC =</span> X<span class="op">$</span>C, <span class="dt">XS =</span> X<span class="op">$</span>S, <span class="dt">y =</span> dat<span class="op">$</span>estimate, <span class="dt">start =</span> start, </span>
+<span id="cb8-3"><a href="#cb8-3"></a>    <span class="dt">survey_area =</span> <span class="kw">t</span>(areas))</span>
+<span id="cb8-4"><a href="#cb8-4"></a></span>
+<span id="cb8-5"><a href="#cb8-5"></a><span class="kw">save</span>(global, dat, <span class="dt">file =</span> <span class="st">&quot;../data/gms.rda&quot;</span>)</span></code></pre></div>
 </div>
 
 

@@ -31,6 +31,54 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 </script>
+<style type="text/css">
+a.anchor-section {margin-left: 10px; visibility: hidden; color: inherit;}
+a.anchor-section::before {content: '#';}
+.hasAnchor:hover a.anchor-section {visibility: visible;}
+</style>
+<script>// Anchor sections v1.0 written by Atsushi Yasumoto on Oct 3rd, 2020.
+document.addEventListener('DOMContentLoaded', function() {
+  // Do nothing if AnchorJS is used
+  if (typeof window.anchors === 'object' && anchors.hasOwnProperty('hasAnchorJSLink')) {
+    return;
+  }
+
+  const h = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
+
+  // Do nothing if sections are already anchored
+  if (Array.from(h).some(x => x.classList.contains('hasAnchor'))) {
+    return null;
+  }
+
+  // Use section id when pandoc runs with --section-divs
+  const section_id = function(x) {
+    return ((x.classList.contains('section') || (x.tagName === 'SECTION'))
+            ? x.id : '');
+  };
+
+  // Add anchors
+  h.forEach(function(x) {
+    const id = x.id || section_id(x.parentElement);
+    if (id === '') {
+      return null;
+    }
+    let anchor = document.createElement('a');
+    anchor.href = '#' + id;
+    anchor.classList = ['anchor-section'];
+    x.classList.add('hasAnchor');
+    x.appendChild(anchor);
+  });
+});
+</script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
 
 
 <style type="text/css">code{white-space: pre;}</style>
@@ -318,7 +366,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 <h1 class="title toc-ignore">Cleaning script for AED data</h1>
 <h4 class="author">Charles T T Edwards</h4>
-<h4 class="date">03 November, 2020</h4>
+<h4 class="date">30 December, 2020</h4>
 
 
 
@@ -411,26 +459,19 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb4-71"><a href="#cb4-71"></a>    </span>
 <span id="cb4-72"><a href="#cb4-72"></a>    dfr<span class="op">$</span>revised_density &lt;-<span class="st"> </span>dfr<span class="op">$</span>estimate<span class="op">/</span>dfr<span class="op">$</span>revised_survey_area</span>
 <span id="cb4-73"><a href="#cb4-73"></a>    </span>
-<span id="cb4-74"><a href="#cb4-74"></a>    <span class="co"># delete</span></span>
-<span id="cb4-75"><a href="#cb4-75"></a>    dfr<span class="op">$</span>revised_density[dfr<span class="op">$</span>delete_revised] &lt;-<span class="st"> </span><span class="ot">NA</span></span>
-<span id="cb4-76"><a href="#cb4-76"></a>    dfr<span class="op">$</span>density[dfr<span class="op">$</span>delete] &lt;-<span class="st"> </span><span class="ot">NA</span></span>
+<span id="cb4-74"><a href="#cb4-74"></a>    <span class="co"># count number surveys per zone</span></span>
+<span id="cb4-75"><a href="#cb4-75"></a>    dfr.tmp &lt;-<span class="st"> </span><span class="kw">ddply</span>(dfr, .(zone), summarize, <span class="dt">n_surveys =</span> <span class="kw">length</span>(density))</span>
+<span id="cb4-76"><a href="#cb4-76"></a>    dfr &lt;-<span class="st"> </span><span class="kw">merge</span>(dfr, dfr.tmp, <span class="dt">by =</span> <span class="st">&quot;zone&quot;</span>, <span class="dt">all =</span> <span class="ot">TRUE</span>)</span>
 <span id="cb4-77"><a href="#cb4-77"></a>    </span>
-<span id="cb4-78"><a href="#cb4-78"></a>    dfr<span class="op">$</span>delete_revised &lt;-<span class="st"> </span><span class="ot">NULL</span></span>
-<span id="cb4-79"><a href="#cb4-79"></a>    dfr<span class="op">$</span>delete &lt;-<span class="st"> </span><span class="ot">NULL</span></span>
-<span id="cb4-80"><a href="#cb4-80"></a>    </span>
-<span id="cb4-81"><a href="#cb4-81"></a>    <span class="co"># count number surveys per zone</span></span>
-<span id="cb4-82"><a href="#cb4-82"></a>    dfr.tmp &lt;-<span class="st"> </span><span class="kw">ddply</span>(dfr, .(zone), summarize, <span class="dt">n_surveys =</span> <span class="kw">sum</span>(<span class="op">!</span><span class="kw">is.na</span>(density)), <span class="dt">n_surveys_revised =</span> <span class="kw">sum</span>(<span class="op">!</span><span class="kw">is.na</span>(revised_density)))</span>
-<span id="cb4-83"><a href="#cb4-83"></a>    dfr &lt;-<span class="st"> </span><span class="kw">merge</span>(dfr, dfr.tmp, <span class="dt">by =</span> <span class="st">&quot;zone&quot;</span>, <span class="dt">all =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb4-84"><a href="#cb4-84"></a>    </span>
-<span id="cb4-85"><a href="#cb4-85"></a>    <span class="co"># FORMAT AND CHECKING</span></span>
-<span id="cb4-86"><a href="#cb4-86"></a>    </span>
-<span id="cb4-87"><a href="#cb4-87"></a>    <span class="co"># check</span></span>
-<span id="cb4-88"><a href="#cb4-88"></a>    <span class="kw">stopifnot</span>(<span class="kw">nrow</span>(dfr) <span class="op">==</span><span class="st"> </span><span class="kw">nrow</span>(dfr.clean))</span>
-<span id="cb4-89"><a href="#cb4-89"></a>    </span>
-<span id="cb4-90"><a href="#cb4-90"></a>    <span class="co"># save cleaned data</span></span>
-<span id="cb4-91"><a href="#cb4-91"></a>    dat_clean[[i]] &lt;-<span class="st"> </span>dfr</span>
-<span id="cb4-92"><a href="#cb4-92"></a>    </span>
-<span id="cb4-93"><a href="#cb4-93"></a>}</span></code></pre></div>
+<span id="cb4-78"><a href="#cb4-78"></a>    <span class="co"># FORMAT AND CHECKING</span></span>
+<span id="cb4-79"><a href="#cb4-79"></a>    </span>
+<span id="cb4-80"><a href="#cb4-80"></a>    <span class="co"># check</span></span>
+<span id="cb4-81"><a href="#cb4-81"></a>    <span class="kw">stopifnot</span>(<span class="kw">nrow</span>(dfr) <span class="op">==</span><span class="st"> </span><span class="kw">nrow</span>(dfr.clean))</span>
+<span id="cb4-82"><a href="#cb4-82"></a>    </span>
+<span id="cb4-83"><a href="#cb4-83"></a>    <span class="co"># save cleaned data</span></span>
+<span id="cb4-84"><a href="#cb4-84"></a>    dat_clean[[i]] &lt;-<span class="st"> </span>dfr</span>
+<span id="cb4-85"><a href="#cb4-85"></a>    </span>
+<span id="cb4-86"><a href="#cb4-86"></a>}</span></code></pre></div>
 <div id="data-quality-checks" class="section level1">
 <h1>Data quality checks</h1>
 <p>The following simple data quality checks were performed:</p>
@@ -868,7 +909,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">2172</td>
 <td align="center">3054</td>
 <td align="center">1804</td>
-<td align="center">3</td>
+<td align="center">5</td>
 <td align="center">1987-2014</td>
 </tr>
 </tbody>
@@ -891,7 +932,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">1615</td>
 <td align="center">2000</td>
 <td align="center">2000</td>
-<td align="center">3</td>
+<td align="center">4</td>
 <td align="center">1977-2005</td>
 </tr>
 <tr class="even">
@@ -899,7 +940,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">5548</td>
 <td align="center">5548</td>
 <td align="center">5547</td>
-<td align="center">5</td>
+<td align="center">7</td>
 <td align="center">1969-2015</td>
 </tr>
 <tr class="odd">
@@ -987,7 +1028,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">17852</td>
 <td align="center">17852</td>
 <td align="center">10500</td>
-<td align="center">3</td>
+<td align="center">5</td>
 <td align="center">1970-2012</td>
 </tr>
 <tr class="even">
@@ -995,7 +1036,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">16738</td>
 <td align="center">50437</td>
 <td align="center">5964</td>
-<td align="center">3</td>
+<td align="center">5</td>
 <td align="center">1976-2015</td>
 </tr>
 <tr class="odd">
@@ -1019,7 +1060,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">1714</td>
 <td align="center">1714</td>
 <td align="center">142</td>
-<td align="center">4</td>
+<td align="center">6</td>
 <td align="center">1977-2014</td>
 </tr>
 <tr class="even">
@@ -1051,7 +1092,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">1232</td>
 <td align="center">1232</td>
 <td align="center">884</td>
-<td align="center">5</td>
+<td align="center">6</td>
 <td align="center">1976-2015</td>
 </tr>
 <tr class="even">
@@ -1075,7 +1116,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">58</td>
 <td align="center">58</td>
 <td align="center">42</td>
-<td align="center">2</td>
+<td align="center">4</td>
 <td align="center">1995-2015</td>
 </tr>
 <tr class="odd">
@@ -1139,7 +1180,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">12317</td>
 <td align="center">36695</td>
 <td align="center">184</td>
-<td align="center">2</td>
+<td align="center">3</td>
 <td align="center">1975-2005</td>
 </tr>
 <tr class="odd">
@@ -1147,7 +1188,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">1173</td>
 <td align="center">1173</td>
 <td align="center">320</td>
-<td align="center">2</td>
+<td align="center">3</td>
 <td align="center">1997-2015</td>
 </tr>
 <tr class="even">
@@ -1155,7 +1196,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">37092</td>
 <td align="center">37092</td>
 <td align="center">37382</td>
-<td align="center">9</td>
+<td align="center">11</td>
 <td align="center">1974-2014</td>
 </tr>
 </tbody>
@@ -1210,7 +1251,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">12862</td>
 <td align="center">12862</td>
 <td align="center">11500</td>
-<td align="center">5</td>
+<td align="center">6</td>
 <td align="center">1976-2015</td>
 </tr>
 <tr class="even">
@@ -1346,7 +1387,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">5391</td>
 <td align="center">8119</td>
 <td align="center">6410</td>
-<td align="center">4</td>
+<td align="center">6</td>
 <td align="center">1979-2010</td>
 </tr>
 <tr class="odd">
@@ -1393,7 +1434,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">585</td>
 <td align="center">585</td>
 <td align="center">662</td>
-<td align="center">2</td>
+<td align="center">3</td>
 <td align="center">1993-2007</td>
 </tr>
 <tr class="odd">
@@ -1417,7 +1458,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">1235</td>
 <td align="center">1235</td>
 <td align="center">648;1302</td>
-<td align="center">3</td>
+<td align="center">4</td>
 <td align="center">2000-2014</td>
 </tr>
 <tr class="even">
@@ -1529,7 +1570,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">2667</td>
 <td align="center">2667</td>
 <td align="center">3093</td>
-<td align="center">2</td>
+<td align="center">3</td>
 <td align="center">1998-2015</td>
 </tr>
 <tr class="even">
@@ -1576,7 +1617,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">620</td>
 <td align="center">620</td>
 <td align="center">513</td>
-<td align="center">2</td>
+<td align="center">6</td>
 <td align="center">1976-2012</td>
 </tr>
 <tr class="even">
@@ -1592,7 +1633,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">186</td>
 <td align="center">240</td>
 <td align="center">136</td>
-<td align="center">3</td>
+<td align="center">6</td>
 <td align="center">1994-2015</td>
 </tr>
 <tr class="even">
@@ -1624,7 +1665,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">390</td>
 <td align="center">450</td>
 <td align="center">450</td>
-<td align="center">3</td>
+<td align="center">4</td>
 <td align="center">1994-2015</td>
 </tr>
 <tr class="even">
@@ -1648,7 +1689,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">887</td>
 <td align="center">2205</td>
 <td align="center">539</td>
-<td align="center">3</td>
+<td align="center">5</td>
 <td align="center">2002-2015</td>
 </tr>
 <tr class="odd">
@@ -1704,7 +1745,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">16802</td>
 <td align="center">16802</td>
 <td align="center">19624</td>
-<td align="center">7</td>
+<td align="center">9</td>
 <td align="center">1964-2015</td>
 </tr>
 <tr class="even">
@@ -1776,7 +1817,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">118</td>
 <td align="center">118</td>
 <td align="center">140</td>
-<td align="center">2</td>
+<td align="center">3</td>
 <td align="center">1994-2005</td>
 </tr>
 <tr class="odd">
@@ -1784,7 +1825,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">219</td>
 <td align="center">219</td>
 <td align="center">165</td>
-<td align="center">5</td>
+<td align="center">6</td>
 <td align="center">1997-2015</td>
 </tr>
 <tr class="even">
@@ -1976,7 +2017,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">522</td>
 <td align="center">522</td>
 <td align="center">572</td>
-<td align="center">4</td>
+<td align="center">5</td>
 <td align="center">1977-2006</td>
 </tr>
 <tr class="even">
@@ -2000,7 +2041,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">481</td>
 <td align="center">650</td>
 <td align="center">490</td>
-<td align="center">4</td>
+<td align="center">5</td>
 <td align="center">1994-2015</td>
 </tr>
 <tr class="odd">
@@ -2048,7 +2089,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">635</td>
 <td align="center">635</td>
 <td align="center">494</td>
-<td align="center">3</td>
+<td align="center">5</td>
 <td align="center">1977-2006</td>
 </tr>
 <tr class="odd">
@@ -2080,7 +2121,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">177</td>
 <td align="center">350</td>
 <td align="center">91</td>
-<td align="center">2</td>
+<td align="center">3</td>
 <td align="center">1995-2005</td>
 </tr>
 <tr class="odd">
@@ -2127,7 +2168,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">4977</td>
 <td align="center">4977</td>
 <td align="center">5737</td>
-<td align="center">6</td>
+<td align="center">7</td>
 <td align="center">1981-2015</td>
 </tr>
 <tr class="even">
@@ -2183,7 +2224,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">1283</td>
 <td align="center">1283</td>
 <td align="center">485</td>
-<td align="center">2</td>
+<td align="center">3</td>
 <td align="center">2002-2015</td>
 </tr>
 <tr class="odd">
@@ -2199,7 +2240,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">1899</td>
 <td align="center">1899</td>
 <td align="center">1894</td>
-<td align="center">3</td>
+<td align="center">5</td>
 <td align="center">1974-2013</td>
 </tr>
 <tr class="odd">
@@ -2254,7 +2295,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">2557</td>
 <td align="center">3463</td>
 <td align="center">3120</td>
-<td align="center">2</td>
+<td align="center">3</td>
 <td align="center">1994-2013</td>
 </tr>
 <tr class="even">
@@ -2309,7 +2350,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">6408</td>
 <td align="center">6408</td>
 <td align="center">6982</td>
-<td align="center">5</td>
+<td align="center">6</td>
 <td align="center">1976-2015</td>
 </tr>
 <tr class="even">
@@ -2349,7 +2390,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">12350</td>
 <td align="center">12350</td>
 <td align="center">5061</td>
-<td align="center">2</td>
+<td align="center">4</td>
 <td align="center">1990-2015</td>
 </tr>
 <tr class="odd">
@@ -2373,7 +2414,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">7126</td>
 <td align="center">10000</td>
 <td align="center">6230;7853</td>
-<td align="center">5</td>
+<td align="center">6</td>
 <td align="center">1994-2015</td>
 </tr>
 <tr class="even">
@@ -2404,7 +2445,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">1156</td>
 <td align="center">1356</td>
 <td align="center">1321</td>
-<td align="center">2</td>
+<td align="center">3</td>
 <td align="center">2002-2013</td>
 </tr>
 <tr class="even">
@@ -2444,7 +2485,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">3446</td>
 <td align="center">6037</td>
 <td align="center">2755;2827</td>
-<td align="center">5</td>
+<td align="center">8</td>
 <td align="center">1976-2015</td>
 </tr>
 <tr class="odd">
@@ -2460,7 +2501,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">5105</td>
 <td align="center">5872</td>
 <td align="center">5020</td>
-<td align="center">7</td>
+<td align="center">8</td>
 <td align="center">1976-2015</td>
 </tr>
 </tbody>
@@ -2523,7 +2564,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">11428</td>
 <td align="center">15284</td>
 <td align="center">9500</td>
-<td align="center">2</td>
+<td align="center">3</td>
 <td align="center">1978-2002</td>
 </tr>
 <tr class="odd">
@@ -2554,7 +2595,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">183</td>
 <td align="center">183</td>
 <td align="center">215</td>
-<td align="center">2</td>
+<td align="center">3</td>
 <td align="center">1993-2011</td>
 </tr>
 <tr class="even">
@@ -2633,7 +2674,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">286</td>
 <td align="center">286</td>
 <td align="center">306</td>
-<td align="center">5</td>
+<td align="center">6</td>
 <td align="center">1977-2009</td>
 </tr>
 <tr class="odd">
@@ -2720,7 +2761,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">248</td>
 <td align="center">322</td>
 <td align="center">322</td>
-<td align="center">2</td>
+<td align="center">3</td>
 <td align="center">1978-2014</td>
 </tr>
 <tr class="even">
@@ -2736,7 +2777,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">11830</td>
 <td align="center">31080</td>
 <td align="center">11862</td>
-<td align="center">5</td>
+<td align="center">10</td>
 <td align="center">1977-2014</td>
 </tr>
 <tr class="even">
@@ -2744,7 +2785,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">573</td>
 <td align="center">802</td>
 <td align="center">499</td>
-<td align="center">2</td>
+<td align="center">3</td>
 <td align="center">1967-2003</td>
 </tr>
 <tr class="odd">
@@ -2752,7 +2793,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">533</td>
 <td align="center">533</td>
 <td align="center">246</td>
-<td align="center">3</td>
+<td align="center">5</td>
 <td align="center">1969-2014</td>
 </tr>
 <tr class="even">
@@ -2840,7 +2881,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">34488</td>
 <td align="center">34488</td>
 <td align="center">41927</td>
-<td align="center">6</td>
+<td align="center">11</td>
 <td align="center">1976-2015</td>
 </tr>
 <tr class="odd">
@@ -2888,7 +2929,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">9850</td>
 <td align="center">9850</td>
 <td align="center">12826</td>
-<td align="center">5</td>
+<td align="center">8</td>
 <td align="center">1976-2014</td>
 </tr>
 <tr class="odd">
@@ -3100,7 +3141,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">3096</td>
 <td align="center">3096</td>
 <td align="center">3850</td>
-<td align="center">2</td>
+<td align="center">3</td>
 <td align="center">2000-2013</td>
 </tr>
 <tr class="even">
@@ -3299,7 +3340,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">3543</td>
 <td align="center">3543</td>
 <td align="center">4640</td>
-<td align="center">2</td>
+<td align="center">3</td>
 <td align="center">2002-2015</td>
 </tr>
 <tr class="even">
@@ -3394,7 +3435,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">23541</td>
 <td align="center">23541</td>
 <td align="center">20123</td>
-<td align="center">2</td>
+<td align="center">3</td>
 <td align="center">1976-2005</td>
 </tr>
 <tr class="even">
@@ -3402,7 +3443,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">29579</td>
 <td align="center">38240</td>
 <td align="center">38240</td>
-<td align="center">3</td>
+<td align="center">6</td>
 <td align="center">1970-2010</td>
 </tr>
 </tbody>
@@ -3441,7 +3482,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">3866</td>
 <td align="center">4743</td>
 <td align="center">4743</td>
-<td align="center">5</td>
+<td align="center">6</td>
 <td align="center">1986-2012</td>
 </tr>
 <tr class="even">
@@ -3472,7 +3513,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">8718</td>
 <td align="center">8718</td>
 <td align="center">15115</td>
-<td align="center">2</td>
+<td align="center">4</td>
 <td align="center">1991-2015</td>
 </tr>
 <tr class="even">
@@ -3488,7 +3529,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">1381</td>
 <td align="center">1381</td>
 <td align="center">900</td>
-<td align="center">2</td>
+<td align="center">3</td>
 <td align="center">1991-2003</td>
 </tr>
 <tr class="even">
@@ -3544,7 +3585,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">3699</td>
 <td align="center">3699</td>
 <td align="center">4092</td>
-<td align="center">3</td>
+<td align="center">4</td>
 <td align="center">1991-2015</td>
 </tr>
 <tr class="odd">
@@ -3576,7 +3617,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">2878</td>
 <td align="center">2878</td>
 <td align="center">2700</td>
-<td align="center">2</td>
+<td align="center">5</td>
 <td align="center">1994-2012</td>
 </tr>
 <tr class="odd">
@@ -3608,7 +3649,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">1504</td>
 <td align="center">1504</td>
 <td align="center">1815</td>
-<td align="center">2</td>
+<td align="center">3</td>
 <td align="center">2001-2011</td>
 </tr>
 <tr class="odd">
@@ -3624,7 +3665,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">2902</td>
 <td align="center">2902</td>
 <td align="center">3370</td>
-<td align="center">4</td>
+<td align="center">5</td>
 <td align="center">1991-2011</td>
 </tr>
 <tr class="odd">
@@ -3632,7 +3673,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">1958</td>
 <td align="center">1958</td>
 <td align="center">1092</td>
-<td align="center">3</td>
+<td align="center">7</td>
 <td align="center">1994-2012</td>
 </tr>
 <tr class="even">
@@ -3640,7 +3681,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">12632</td>
 <td align="center">17350</td>
 <td align="center">17350</td>
-<td align="center">3</td>
+<td align="center">5</td>
 <td align="center">1991-2012</td>
 </tr>
 <tr class="odd">
@@ -3648,7 +3689,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">2434</td>
 <td align="center">2434</td>
 <td align="center">3161</td>
-<td align="center">2</td>
+<td align="center">3</td>
 <td align="center">2000-2011</td>
 </tr>
 <tr class="even">
@@ -3704,7 +3745,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">4371</td>
 <td align="center">7383</td>
 <td align="center">3600</td>
-<td align="center">3</td>
+<td align="center">4</td>
 <td align="center">1991-2011</td>
 </tr>
 <tr class="odd">
@@ -3720,7 +3761,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">8156</td>
 <td align="center">8156</td>
 <td align="center">9050</td>
-<td align="center">5</td>
+<td align="center">6</td>
 <td align="center">1979-2015</td>
 </tr>
 <tr class="odd">
@@ -3744,7 +3785,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">2651</td>
 <td align="center">4140</td>
 <td align="center">3842</td>
-<td align="center">2</td>
+<td align="center">4</td>
 <td align="center">1994-2009</td>
 </tr>
 <tr class="even">
@@ -3815,7 +3856,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">2821</td>
 <td align="center">3689</td>
 <td align="center">3689</td>
-<td align="center">2</td>
+<td align="center">4</td>
 <td align="center">1994-2014</td>
 </tr>
 <tr class="odd">
@@ -3839,7 +3880,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">2834</td>
 <td align="center">3815</td>
 <td align="center">2621</td>
-<td align="center">4</td>
+<td align="center">5</td>
 <td align="center">1995-2014</td>
 </tr>
 <tr class="even">
@@ -3863,7 +3904,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">2620</td>
 <td align="center">4000</td>
 <td align="center">2286</td>
-<td align="center">2</td>
+<td align="center">3</td>
 <td align="center">1973-2014</td>
 </tr>
 <tr class="odd">
@@ -3887,7 +3928,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">37782</td>
 <td align="center">37782</td>
 <td align="center">42341;42295</td>
-<td align="center">5</td>
+<td align="center">6</td>
 <td align="center">1995-2014</td>
 </tr>
 <tr class="even">
@@ -4045,7 +4086,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">6266</td>
 <td align="center">6266</td>
 <td align="center">4486</td>
-<td align="center">4</td>
+<td align="center">5</td>
 <td align="center">1998-2009</td>
 </tr>
 <tr class="even">
@@ -4093,7 +4134,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">935</td>
 <td align="center">935</td>
 <td align="center">1166</td>
-<td align="center">2</td>
+<td align="center">3</td>
 <td align="center">2001-2012</td>
 </tr>
 <tr class="even">
@@ -4172,7 +4213,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">17002</td>
 <td align="center">24985</td>
 <td align="center">14300</td>
-<td align="center">2</td>
+<td align="center">3</td>
 <td align="center">1991-2015</td>
 </tr>
 <tr class="odd">
@@ -4203,7 +4244,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">18194</td>
 <td align="center">18194</td>
 <td align="center">9550</td>
-<td align="center">2</td>
+<td align="center">3</td>
 <td align="center">1976-2012</td>
 </tr>
 <tr class="even">
@@ -4211,7 +4252,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">8609</td>
 <td align="center">15872</td>
 <td align="center">5525;7699</td>
-<td align="center">4</td>
+<td align="center">6</td>
 <td align="center">1976-2014</td>
 </tr>
 <tr class="odd">
@@ -4219,7 +4260,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">5849</td>
 <td align="center">15570</td>
 <td align="center">6000</td>
-<td align="center">2</td>
+<td align="center">5</td>
 <td align="center">1977-2005</td>
 </tr>
 <tr class="even">
@@ -4267,7 +4308,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">16874</td>
 <td align="center">30000</td>
 <td align="center">13726</td>
-<td align="center">4</td>
+<td align="center">5</td>
 <td align="center">1989-2011</td>
 </tr>
 <tr class="even">
@@ -4315,7 +4356,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">5431</td>
 <td align="center">8000</td>
 <td align="center">4810</td>
-<td align="center">3</td>
+<td align="center">7</td>
 <td align="center">1977-2014</td>
 </tr>
 </tbody>
@@ -4401,7 +4442,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">2438</td>
 <td align="center">2438</td>
 <td align="center">3303</td>
-<td align="center">2</td>
+<td align="center">3</td>
 <td align="center">2001-2014</td>
 </tr>
 <tr class="even">
@@ -4697,7 +4738,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">932</td>
 <td align="center">2640</td>
 <td align="center">416</td>
-<td align="center">4</td>
+<td align="center">6</td>
 <td align="center">1979-2014</td>
 </tr>
 <tr class="odd">
@@ -4768,7 +4809,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">446</td>
 <td align="center">909</td>
 <td align="center">214</td>
-<td align="center">2</td>
+<td align="center">3</td>
 <td align="center">1995-2015</td>
 </tr>
 <tr class="odd">
@@ -4784,7 +4825,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">1580</td>
 <td align="center">1580</td>
 <td align="center">1442</td>
-<td align="center">5</td>
+<td align="center">6</td>
 <td align="center">1976-2014</td>
 </tr>
 <tr class="odd">
@@ -4832,7 +4873,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">4315</td>
 <td align="center">6235</td>
 <td align="center">4064</td>
-<td align="center">7</td>
+<td align="center">8</td>
 <td align="center">1966-2014</td>
 </tr>
 <tr class="odd">
@@ -4848,7 +4889,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">2419</td>
 <td align="center">2419</td>
 <td align="center">2259</td>
-<td align="center">4</td>
+<td align="center">5</td>
 <td align="center">1992-2014</td>
 </tr>
 <tr class="odd">
@@ -4856,7 +4897,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">1848</td>
 <td align="center">3560</td>
 <td align="center">1054</td>
-<td align="center">2</td>
+<td align="center">3</td>
 <td align="center">1976-2003</td>
 </tr>
 <tr class="even">
@@ -4872,7 +4913,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">592</td>
 <td align="center">592</td>
 <td align="center">542;784</td>
-<td align="center">3</td>
+<td align="center">4</td>
 <td align="center">1995-2015</td>
 </tr>
 </tbody>
@@ -4934,7 +4975,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">16523</td>
 <td align="center">16523</td>
 <td align="center">18259;17943</td>
-<td align="center">5</td>
+<td align="center">6</td>
 <td align="center">1993-2015</td>
 </tr>
 <tr class="even">
@@ -4950,7 +4991,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">11671</td>
 <td align="center">21950</td>
 <td align="center">12107;10485</td>
-<td align="center">5</td>
+<td align="center">6</td>
 <td align="center">1990-2015</td>
 </tr>
 <tr class="even">
@@ -4958,7 +4999,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">44530</td>
 <td align="center">86451</td>
 <td align="center">40887</td>
-<td align="center">3</td>
+<td align="center">5</td>
 <td align="center">1992-2011</td>
 </tr>
 <tr class="odd">
@@ -4974,7 +5015,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">5917</td>
 <td align="center">7794</td>
 <td align="center">7001</td>
-<td align="center">2</td>
+<td align="center">3</td>
 <td align="center">2004-2015</td>
 </tr>
 </tbody>
@@ -5013,7 +5054,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">91899</td>
 <td align="center">91899</td>
 <td align="center">111247;86712</td>
-<td align="center">4</td>
+<td align="center">6</td>
 <td align="center">1975-2014</td>
 </tr>
 <tr class="even">
@@ -5021,7 +5062,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">22720</td>
 <td align="center">22720</td>
 <td align="center">17160</td>
-<td align="center">2</td>
+<td align="center">3</td>
 <td align="center">1975-2006</td>
 </tr>
 <tr class="odd">
@@ -5029,7 +5070,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">1558</td>
 <td align="center">1558</td>
 <td align="center">1250;1320</td>
-<td align="center">5</td>
+<td align="center">6</td>
 <td align="center">1976-2014</td>
 </tr>
 </tbody>
@@ -5052,7 +5093,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">3873</td>
 <td align="center">3873</td>
 <td align="center">5275</td>
-<td align="center">3</td>
+<td align="center">5</td>
 <td align="center">1993-2014</td>
 </tr>
 </tbody>
@@ -5107,7 +5148,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">1573</td>
 <td align="center">1573</td>
 <td align="center">2160</td>
-<td align="center">2</td>
+<td align="center">3</td>
 <td align="center">1976-2015</td>
 </tr>
 <tr class="even">
@@ -5139,7 +5180,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">2313</td>
 <td align="center">2313</td>
 <td align="center">2244</td>
-<td align="center">4</td>
+<td align="center">5</td>
 <td align="center">1977-2011</td>
 </tr>
 </tbody>
@@ -5162,7 +5203,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">218958</td>
 <td align="center">1302888</td>
 <td align="center">37991</td>
-<td align="center">6</td>
+<td align="center">7</td>
 <td align="center">1977-2015</td>
 </tr>
 <tr class="even">
@@ -5209,7 +5250,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">70</td>
 <td align="center">154</td>
 <td align="center">28</td>
-<td align="center">2</td>
+<td align="center">3</td>
 <td align="center">1993-2012</td>
 </tr>
 <tr class="odd">
@@ -5240,7 +5281,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">2838</td>
 <td align="center">2838</td>
 <td align="center">2316</td>
-<td align="center">4</td>
+<td align="center">5</td>
 <td align="center">1977-2014</td>
 </tr>
 <tr class="even">
@@ -5256,7 +5297,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">620</td>
 <td align="center">860</td>
 <td align="center">860</td>
-<td align="center">2</td>
+<td align="center">3</td>
 <td align="center">2006-2015</td>
 </tr>
 <tr class="even">
@@ -5264,7 +5305,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">1450</td>
 <td align="center">1802</td>
 <td align="center">1802</td>
-<td align="center">2</td>
+<td align="center">3</td>
 <td align="center">1992-2013</td>
 </tr>
 <tr class="odd">
@@ -5272,7 +5313,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">1729</td>
 <td align="center">1729</td>
 <td align="center">1679</td>
-<td align="center">1</td>
+<td align="center">3</td>
 <td align="center">1992-2013</td>
 </tr>
 <tr class="even">
@@ -5280,7 +5321,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">610</td>
 <td align="center">610</td>
 <td align="center">640</td>
-<td align="center">2</td>
+<td align="center">4</td>
 <td align="center">1998-2015</td>
 </tr>
 <tr class="odd">
@@ -5342,7 +5383,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <td align="center">968</td>
 <td align="center">1171</td>
 <td align="center">1123</td>
-<td align="center">3</td>
+<td align="center">4</td>
 <td align="center">1997-2011</td>
 </tr>
 </tbody>
@@ -5398,20 +5439,18 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <p>Coerce factors</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>dat<span class="op">$</span>zone &lt;-<span class="st"> </span><span class="kw">as.character</span>(dat<span class="op">$</span>zone)</span>
 <span id="cb8-2"><a href="#cb8-2"></a>dat<span class="op">$</span>country &lt;-<span class="st"> </span><span class="kw">as.character</span>(dat<span class="op">$</span>country)</span></code></pre></div>
-<p>Delete sites NA density</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>dat &lt;-<span class="st"> </span><span class="kw">subset</span>(dat, <span class="op">!</span><span class="kw">is.na</span>(density))</span></code></pre></div>
 <p>Delete sites with all zero</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>dfr &lt;-<span class="st"> </span><span class="kw">ddply</span>(dat, .(zone), summarize, <span class="dt">allzero =</span> <span class="kw">all</span>(estimate <span class="op">==</span><span class="st"> </span><span class="dv">0</span>))</span>
-<span id="cb10-2"><a href="#cb10-2"></a></span>
-<span id="cb10-3"><a href="#cb10-3"></a>dfr &lt;-<span class="st"> </span><span class="kw">subset</span>(dfr, <span class="op">!</span>allzero)</span>
-<span id="cb10-4"><a href="#cb10-4"></a></span>
-<span id="cb10-5"><a href="#cb10-5"></a>dat &lt;-<span class="st"> </span><span class="kw">subset</span>(dat, zone <span class="op">%in%</span><span class="st"> </span>dfr<span class="op">$</span>zone)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>dfr &lt;-<span class="st"> </span><span class="kw">ddply</span>(dat, .(zone), summarize, <span class="dt">allzero =</span> <span class="kw">all</span>(estimate <span class="op">==</span><span class="st"> </span><span class="dv">0</span>))</span>
+<span id="cb9-2"><a href="#cb9-2"></a></span>
+<span id="cb9-3"><a href="#cb9-3"></a>dfr &lt;-<span class="st"> </span><span class="kw">subset</span>(dfr, <span class="op">!</span>allzero)</span>
+<span id="cb9-4"><a href="#cb9-4"></a></span>
+<span id="cb9-5"><a href="#cb9-5"></a>dat &lt;-<span class="st"> </span><span class="kw">subset</span>(dat, zone <span class="op">%in%</span><span class="st"> </span>dfr<span class="op">$</span>zone)</span></code></pre></div>
 <p>Write .csv file</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="kw">write.csv</span>(dat, <span class="dt">file =</span> <span class="kw">file.path</span>(<span class="st">&quot;../data-raw&quot;</span>, <span class="st">&quot;GLOBAL_AED_1979_2016.csv&quot;</span>), <span class="dt">row.names =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw">write.csv</span>(dat, <span class="dt">file =</span> <span class="kw">file.path</span>(<span class="st">&quot;../data-raw&quot;</span>, <span class="st">&quot;GLOBAL_AED_1979_2016.csv&quot;</span>), <span class="dt">row.names =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
 <p>Save to package data</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co"># save clean data</span></span>
-<span id="cb12-2"><a href="#cb12-2"></a>AED &lt;-<span class="st"> </span>dat</span>
-<span id="cb12-3"><a href="#cb12-3"></a><span class="kw">save</span>(AED, <span class="dt">file =</span> <span class="kw">file.path</span>(<span class="st">&quot;../data&quot;</span>, <span class="st">&quot;AED.rda&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="co"># save clean data</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a>AED &lt;-<span class="st"> </span>dat</span>
+<span id="cb11-3"><a href="#cb11-3"></a><span class="kw">save</span>(AED, <span class="dt">file =</span> <span class="kw">file.path</span>(<span class="st">&quot;../data&quot;</span>, <span class="st">&quot;AED.rda&quot;</span>))</span></code></pre></div>
 </div>
 
 

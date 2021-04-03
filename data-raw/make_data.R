@@ -21,6 +21,16 @@ region_label <- function(x) {
          
 }
 
+sub_region_label <- function(x) {
+  switch(x,
+         "N" = "north",
+         "S" = "south",
+         "E" = "east",
+         "forest" = "forest",
+         as.character(NA))
+  
+}
+
 ################
 
 region       <- "GLOBAL"
@@ -34,9 +44,11 @@ dat <- read.csv(paste0(label(region, TRUE), "_AED_1979_2016_FINAL_", data_stamp,
 
 # check region
 message("Found regions: ", paste(unique(dat$new_region), collapse = ", "))
-dat$region <- sapply(dat$new_region, region_label)
+dat$region     <- sapply(dat$new_region, region_label)
+dat$subregion  <- sapply(dat$new_region, sub_region_label)
 dat$new_region <- NULL
 message("... converted to: ", paste(unique(dat$region), collapse = ", "))
+message("... with sub-regions: ", paste(unique(dat$subregion), collapse = ", "))
 
 # if global then country may have >1 species
 if (region == "GLOBAL") {
@@ -67,6 +79,6 @@ save(dat, file = paste0(label(region, TRUE), "_AED_1979_2016_raw.rda"))
 write.csv(dat, file = paste0(label(region, TRUE), "_AED_1979_2016_raw.csv"), row.names = FALSE)
 
 # clean data and create summary
-#rmarkdown::render("clean_data.Rmd", output_file = "data_summary.html", output_dir = file.path("../inst/doc"))
+rmarkdown::render("clean_data.Rmd", output_file = "data_cleaning.html", output_dir = file.path("../inst/doc"))
 
 

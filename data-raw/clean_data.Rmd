@@ -22,7 +22,7 @@ suppressPackageStartupMessages(library(pander))
 
 ```{r, echo=TRUE}
 # load data
-load(file.path("../data-raw", "GLOBAL_AED_1979_2016_raw.rda"))
+load("GLOBAL_AED_1979_2016_raw.rda")
 ```
 
 ```{r}
@@ -40,7 +40,7 @@ tab <- data.frame(Country = countries, "no incomplete" = NA, "no duplicates" = N
 ```{r}
 # check for unknown countries
 if (with(dat, any(is.na(country) | country == ""))) {
-    warning("deleting unknonwn countries")
+    warning("deleting unknown countries")
     dat <- subset(dat, !is.na(country) & country != "")    
 }
 ```
@@ -155,7 +155,7 @@ The following simple data quality checks were performed:
 4) Delete records with reliabilty = E
 5) Sum survey data from same year and zone to give average density
 
-```{r, results = "asis"}
+```{r, echo = FALSE, results = "asis"}
 pandoc.table(tab, style = "rmarkdown", split.tables = Inf)
 ```
 
@@ -227,14 +227,15 @@ if (any(is.na(dat$density))) stop("NA values in density")
 
 Write .csv file
 ```{r}
-write.csv(dat, file = file.path("../data-raw", "GLOBAL_AED_1979_2016.csv"), row.names = FALSE)
+write.csv(dat, file = "GLOBAL_AED_1979_2016.csv", row.names = FALSE)
 ```
 
 Save to package data
 ```{r, echo = TRUE}
 # save clean data
 AED <- dat
-save(AED, file = file.path("../data", "AED.rda"))
+suppressMessages(usethis::use_data(AED, overwrite = TRUE))
+#save(AED, file = file.path("../data", "AED.rda"))
 ```
 
 

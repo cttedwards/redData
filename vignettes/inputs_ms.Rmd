@@ -27,7 +27,7 @@ Load data and subset.
 ```{r}
 data(AED, package = "redData")
 
-dat_global <- AED[, c('region', 'country', 'year', 'zone', 'estimate', 'survey_area', 'modal_survey_area', 'density', 'n_surveys')]
+dat_global <- AED[, c('region', 'subregion', 'country', 'year', 'zone', 'estimate', 'survey_area', 'modal_survey_area', 'density', 'n_surveys')]
 ```
 
 # Forest

@@ -16,18 +16,15 @@ else
 	CD = cd
 endif
 
-all: document install clean
+all: install clean
 
 ./inst/doc/*.html: ./vignettes/*.Rmd
-	$(CD) vignettes; Rcmd Sweave clean_data.Rmd; Rcmd Sweave inputs_rla.Rmd; Rcmd Sweave inputs_ms.Rmd
+	$(CD) vignettes; Rcmd Sweave inputs_rla.Rmd; Rcmd Sweave inputs_ms.Rmd
 	$(CP) ./vignettes/*.html ./inst/doc/
     
 install: $(PKG_FILES) ./inst/doc/*.html ./data/*.rda
 	Rcmd build --no-build-vignettes .
 	Rcmd INSTALL $(PKG_NAME)_*.tar.gz
-    
-document:
-    Rscript -e "roxygen2::roxygenise()"
 	
 DESCRIPTION NAMESPACE: $(R_FILES)
 	Rscript version_update.R

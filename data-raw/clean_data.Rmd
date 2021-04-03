@@ -87,6 +87,7 @@ for (i in countries) {
     dfr       <- dfr.clean
     dfr.clean <- ddply(dfr, .(year, zone), summarize, 
                        region = unique(region),
+                       subregion = unique(subregion),
                        survey_area_shrinkage = unique(survey_area_shrinkage),
                        reliability = max(as.character(reliability)), 
                        n_per_estimate = length(estimate), 
@@ -208,8 +209,10 @@ dat <- ldply(dat_clean, .id = "country")
 
 Coerce factors
 ```{r}
-dat$zone    <- as.character(dat$zone)
-dat$country <- as.character(dat$country)
+dat$region    <- as.character(dat$region)
+dat$subregion <- as.character(dat$subregion)
+dat$country   <- as.character(dat$country)
+dat$zone      <- as.character(dat$zone)
 ```
 
 Delete sites with all zero
@@ -235,7 +238,6 @@ Save to package data
 # save clean data
 AED <- dat
 suppressMessages(usethis::use_data(AED, overwrite = TRUE))
-#save(AED, file = file.path("../data", "AED.rda"))
 ```
 
 

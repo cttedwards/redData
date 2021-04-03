@@ -394,7 +394,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb4-37"><a href="#cb4-37"></a>    </span>
 <span id="cb4-38"><a href="#cb4-38"></a>    <span class="co"># COMBINE SURVEYS FROM THE SAME ZONE IN THE SAME YEAR</span></span>
 <span id="cb4-39"><a href="#cb4-39"></a>    dfr &lt;-<span class="st"> </span>dfr.clean</span>
-<span id="cb4-40"><a href="#cb4-40"></a>    dfr.clean &lt;-<span class="st"> </span><span class="kw">ddply</span>(dfr, .(year, zone), summarize, <span class="dt">region =</span> <span class="kw">unique</span>(region), <span class="dt">survey_area_shrinkage =</span> <span class="kw">unique</span>(survey_area_shrinkage), </span>
+<span id="cb4-40"><a href="#cb4-40"></a>    dfr.clean &lt;-<span class="st"> </span><span class="kw">ddply</span>(dfr, .(year, zone), summarize, <span class="dt">region =</span> <span class="kw">unique</span>(region), <span class="dt">subregion =</span> <span class="kw">unique</span>(subregion), <span class="dt">survey_area_shrinkage =</span> <span class="kw">unique</span>(survey_area_shrinkage), </span>
 <span id="cb4-41"><a href="#cb4-41"></a>        <span class="dt">reliability =</span> <span class="kw">max</span>(<span class="kw">as.character</span>(reliability)), <span class="dt">n_per_estimate =</span> <span class="kw">length</span>(estimate), <span class="dt">estimate =</span> <span class="kw">sum</span>(estimate), <span class="dt">survey_area =</span> <span class="kw">sum</span>(survey_area), </span>
 <span id="cb4-42"><a href="#cb4-42"></a>        <span class="dt">density =</span> estimate<span class="op">/</span>survey_area)</span>
 <span id="cb4-43"><a href="#cb4-43"></a>    </span>
@@ -5405,8 +5405,10 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <p>Melt list</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>dat &lt;-<span class="st"> </span><span class="kw">ldply</span>(dat_clean, <span class="dt">.id =</span> <span class="st">&quot;country&quot;</span>)</span></code></pre></div>
 <p>Coerce factors</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>dat<span class="op">$</span>zone &lt;-<span class="st"> </span><span class="kw">as.character</span>(dat<span class="op">$</span>zone)</span>
-<span id="cb7-2"><a href="#cb7-2"></a>dat<span class="op">$</span>country &lt;-<span class="st"> </span><span class="kw">as.character</span>(dat<span class="op">$</span>country)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>dat<span class="op">$</span>region &lt;-<span class="st"> </span><span class="kw">as.character</span>(dat<span class="op">$</span>region)</span>
+<span id="cb7-2"><a href="#cb7-2"></a>dat<span class="op">$</span>subregion &lt;-<span class="st"> </span><span class="kw">as.character</span>(dat<span class="op">$</span>subregion)</span>
+<span id="cb7-3"><a href="#cb7-3"></a>dat<span class="op">$</span>country &lt;-<span class="st"> </span><span class="kw">as.character</span>(dat<span class="op">$</span>country)</span>
+<span id="cb7-4"><a href="#cb7-4"></a>dat<span class="op">$</span>zone &lt;-<span class="st"> </span><span class="kw">as.character</span>(dat<span class="op">$</span>zone)</span></code></pre></div>
 <p>Delete sites with all zero</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>dfr &lt;-<span class="st"> </span><span class="kw">ddply</span>(dat, .(zone), summarize, <span class="dt">allzero =</span> <span class="kw">all</span>(estimate <span class="op">==</span><span class="st"> </span><span class="dv">0</span>))</span>
 <span id="cb8-2"><a href="#cb8-2"></a></span>
@@ -5418,8 +5420,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <p>Save to package data</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># save clean data</span></span>
 <span id="cb10-2"><a href="#cb10-2"></a>AED &lt;-<span class="st"> </span>dat</span>
-<span id="cb10-3"><a href="#cb10-3"></a><span class="kw">suppressMessages</span>(usethis<span class="op">::</span><span class="kw">use_data</span>(AED, <span class="dt">overwrite =</span> <span class="ot">TRUE</span>))</span>
-<span id="cb10-4"><a href="#cb10-4"></a><span class="co"># save(AED, file = file.path(&#39;../data&#39;, &#39;AED.rda&#39;))</span></span></code></pre></div>
+<span id="cb10-3"><a href="#cb10-3"></a><span class="kw">suppressMessages</span>(usethis<span class="op">::</span><span class="kw">use_data</span>(AED, <span class="dt">overwrite =</span> <span class="ot">TRUE</span>))</span></code></pre></div>
 </div>
 
 

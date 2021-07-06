@@ -106,7 +106,7 @@ for (i in regions) {
 }
 
 # extract ordered vector of zones
-zones <- as.character(unlist(zones_per_country))
+zones <- unique(dat$zone)
 
 # dimensions
 N <- nrow(dat)
@@ -130,15 +130,16 @@ X$C <- match(dat$country, countries)
 X$R <- match(dat$subregion, regions)
 
 # check numbers match
-stopifnot(all(table(X$C) == table(dat$country)))
-stopifnot(all(table(X$R) == table(dat$subregion)))
+stopifnot(all(table(X$C) == table(dat$country)[countries]))
+stopifnot(all(table(X$R) == table(dat$subregion)[regions]))
+stopifnot(all(table(X$S) == table(dat$zone)[zones]))
 
 # check again
 for (i in 1:nrow(dat)) {
     
-    stopifnot(dat$country[i] == countries[X$C[i]])
-    stopifnot(dat$zone[i]    == zones[X$S[i]])
-    stopifnot(dat$subregion[i]  == regions[X$R[i]])
+    stopifnot(dat$country[i]   == countries[X$C[i]])
+    stopifnot(dat$zone[i]      == zones[X$S[i]])
+    stopifnot(dat$subregion[i] == regions[X$R[i]])
 }
 
 # check
@@ -254,7 +255,7 @@ for (i in regions) {
 }
 
 # extract ordered vector of zones
-zones <- as.character(unlist(zones_per_country))
+zones <- unique(dat$zone)
 
 # dimensions
 N <- nrow(dat)
@@ -278,15 +279,16 @@ X$C <- match(dat$country, countries)
 X$R <- match(dat$subregion, regions)
 
 # check numbers match
-stopifnot(all(table(X$C) == table(dat$country)))
-stopifnot(all(table(X$R) == table(dat$subregion)))
+stopifnot(all(table(X$C) == table(dat$country)[countries]))
+stopifnot(all(table(X$R) == table(dat$subregion)[regions]))
+stopifnot(all(table(X$S) == table(dat$zone)[zones]))
 
 # check again
 for (i in 1:nrow(dat)) {
     
-    stopifnot(dat$country[i] == countries[X$C[i]])
-    stopifnot(dat$zone[i]    == zones[X$S[i]])
-    stopifnot(dat$subregion[i]  == regions[X$R[i]])
+    stopifnot(dat$country[i]   == countries[X$C[i]])
+    stopifnot(dat$zone[i]      == zones[X$S[i]])
+    stopifnot(dat$subregion[i] == regions[X$R[i]])
 }
 
 # check
@@ -404,7 +406,7 @@ for (i in regions) {
 }
 
 # extract ordered vector of zones
-zones <- as.character(unlist(zones_per_country))
+zones <- unique(dat$zone)
 
 # dimensions
 N <- nrow(dat)
@@ -428,15 +430,16 @@ X$C <- match(dat$country, countries)
 X$R <- match(dat$subregion, regions)
 
 # check numbers match
-stopifnot(all(table(X$C) == table(dat$country)))
-stopifnot(all(table(X$R) == table(dat$subregion)))
+stopifnot(all(table(X$C) == table(dat$country)[countries]))
+stopifnot(all(table(X$R) == table(dat$subregion)[regions]))
+stopifnot(all(table(X$S) == table(dat$zone)[zones]))
 
 # check again
 for (i in 1:nrow(dat)) {
     
-    stopifnot(dat$country[i] == countries[X$C[i]])
-    stopifnot(dat$zone[i]    == zones[X$S[i]])
-    stopifnot(dat$subregion[i]  == regions[X$R[i]])
+    stopifnot(dat$country[i]   == countries[X$C[i]])
+    stopifnot(dat$zone[i]      == zones[X$S[i]])
+    stopifnot(dat$subregion[i] == regions[X$R[i]])
 }
 
 # check

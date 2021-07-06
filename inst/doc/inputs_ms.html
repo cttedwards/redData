@@ -12,7 +12,7 @@
 
 <meta name="author" content="Charles T T Edwards (Wellington, New Zealand)" />
 
-<meta name="date" content="2021-04-21" />
+<meta name="date" content="2021-07-06" />
 
 <title>Data preparation for manuscript</title>
 
@@ -336,7 +336,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 <h1 class="title toc-ignore">Data preparation for manuscript</h1>
 <h4 class="author">Charles T T Edwards (Wellington, New Zealand)</h4>
-<h4 class="date">2021-04-21</h4>
+<h4 class="date">2021-07-06</h4>
 
 
 
@@ -344,7 +344,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <div id="preliminaries" class="section level1">
 <h1>Preliminaries</h1>
 <p>Load data and subset.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">data</span>(AED, <span class="dt">package =</span> <span class="st">&quot;redData&quot;</span>)</span>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">load</span>(<span class="st">&quot;../data/AED.rda&quot;</span>)</span>
 <span id="cb2-2"><a href="#cb2-2"></a></span>
 <span id="cb2-3"><a href="#cb2-3"></a>dat_global &lt;-<span class="st"> </span>AED[, <span class="kw">c</span>(<span class="st">&quot;region&quot;</span>, <span class="st">&quot;subregion&quot;</span>, <span class="st">&quot;country&quot;</span>, <span class="st">&quot;year&quot;</span>, <span class="st">&quot;zone&quot;</span>, <span class="st">&quot;estimate&quot;</span>, <span class="st">&quot;survey_area&quot;</span>, </span>
 <span id="cb2-4"><a href="#cb2-4"></a>    <span class="st">&quot;modal_survey_area&quot;</span>, <span class="st">&quot;density&quot;</span>, <span class="st">&quot;n_surveys&quot;</span>)]</span></code></pre></div>
@@ -354,9 +354,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>dat &lt;-<span class="st"> </span><span class="kw">subset</span>(dat_global, region <span class="op">==</span><span class="st"> &quot;forest&quot;</span>)</span>
 <span id="cb3-2"><a href="#cb3-2"></a></span>
 <span id="cb3-3"><a href="#cb3-3"></a><span class="co"># Start of model</span></span>
-<span id="cb3-4"><a href="#cb3-4"></a>year_start &lt;-<span class="st"> </span><span class="kw">min</span>(dat<span class="op">$</span>year) <span class="op">-</span><span class="st"> </span>1L</span>
-<span id="cb3-5"><a href="#cb3-5"></a></span>
-<span id="cb3-6"><a href="#cb3-6"></a><span class="co"># Start of decline year_N0 &lt;- 1984</span></span></code></pre></div>
+<span id="cb3-4"><a href="#cb3-4"></a>year_start &lt;-<span class="st"> </span><span class="kw">min</span>(dat<span class="op">$</span>year) <span class="op">-</span><span class="st"> </span>1L</span></code></pre></div>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># year labels for plotting</span></span>
 <span id="cb4-2"><a href="#cb4-2"></a>dat<span class="op">$</span>year_label &lt;-<span class="st"> </span>dat<span class="op">$</span>year</span>
 <span id="cb4-3"><a href="#cb4-3"></a></span>
@@ -419,7 +417,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb4-60"><a href="#cb4-60"></a>}</span>
 <span id="cb4-61"><a href="#cb4-61"></a></span>
 <span id="cb4-62"><a href="#cb4-62"></a><span class="co"># extract ordered vector of zones</span></span>
-<span id="cb4-63"><a href="#cb4-63"></a>zones &lt;-<span class="st"> </span><span class="kw">as.character</span>(<span class="kw">unlist</span>(zones_per_country))</span>
+<span id="cb4-63"><a href="#cb4-63"></a>zones &lt;-<span class="st"> </span><span class="kw">unique</span>(dat<span class="op">$</span>zone)</span>
 <span id="cb4-64"><a href="#cb4-64"></a></span>
 <span id="cb4-65"><a href="#cb4-65"></a><span class="co"># dimensions</span></span>
 <span id="cb4-66"><a href="#cb4-66"></a>N &lt;-<span class="st"> </span><span class="kw">nrow</span>(dat)</span>
@@ -443,61 +441,60 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb4-84"><a href="#cb4-84"></a>X<span class="op">$</span>R &lt;-<span class="st"> </span><span class="kw">match</span>(dat<span class="op">$</span>subregion, regions)</span>
 <span id="cb4-85"><a href="#cb4-85"></a></span>
 <span id="cb4-86"><a href="#cb4-86"></a><span class="co"># check numbers match</span></span>
-<span id="cb4-87"><a href="#cb4-87"></a><span class="kw">stopifnot</span>(<span class="kw">all</span>(<span class="kw">table</span>(X<span class="op">$</span>C) <span class="op">==</span><span class="st"> </span><span class="kw">table</span>(dat<span class="op">$</span>country)))</span>
-<span id="cb4-88"><a href="#cb4-88"></a><span class="kw">stopifnot</span>(<span class="kw">all</span>(<span class="kw">table</span>(X<span class="op">$</span>R) <span class="op">==</span><span class="st"> </span><span class="kw">table</span>(dat<span class="op">$</span>subregion)))</span>
-<span id="cb4-89"><a href="#cb4-89"></a></span>
-<span id="cb4-90"><a href="#cb4-90"></a><span class="co"># check again</span></span>
-<span id="cb4-91"><a href="#cb4-91"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(dat)) {</span>
-<span id="cb4-92"><a href="#cb4-92"></a>    </span>
-<span id="cb4-93"><a href="#cb4-93"></a>    <span class="kw">stopifnot</span>(dat<span class="op">$</span>country[i] <span class="op">==</span><span class="st"> </span>countries[X<span class="op">$</span>C[i]])</span>
-<span id="cb4-94"><a href="#cb4-94"></a>    <span class="kw">stopifnot</span>(dat<span class="op">$</span>zone[i] <span class="op">==</span><span class="st"> </span>zones[X<span class="op">$</span>S[i]])</span>
-<span id="cb4-95"><a href="#cb4-95"></a>    <span class="kw">stopifnot</span>(dat<span class="op">$</span>subregion[i] <span class="op">==</span><span class="st"> </span>regions[X<span class="op">$</span>R[i]])</span>
-<span id="cb4-96"><a href="#cb4-96"></a>}</span>
-<span id="cb4-97"><a href="#cb4-97"></a></span>
-<span id="cb4-98"><a href="#cb4-98"></a><span class="co"># check</span></span>
-<span id="cb4-99"><a href="#cb4-99"></a><span class="kw">stopifnot</span>(<span class="kw">all.equal</span>(dat<span class="op">$</span>year, years[X<span class="op">$</span>Y]))</span>
-<span id="cb4-100"><a href="#cb4-100"></a><span class="kw">stopifnot</span>(<span class="kw">all.equal</span>(dat<span class="op">$</span>zone, zones[X<span class="op">$</span>S]))</span>
-<span id="cb4-101"><a href="#cb4-101"></a><span class="kw">stopifnot</span>(<span class="kw">all.equal</span>(dat<span class="op">$</span>country, countries[X<span class="op">$</span>C]))</span>
-<span id="cb4-102"><a href="#cb4-102"></a><span class="kw">stopifnot</span>(<span class="kw">all.equal</span>(dat<span class="op">$</span>subregion, regions[X<span class="op">$</span>R]))</span>
-<span id="cb4-103"><a href="#cb4-103"></a></span>
-<span id="cb4-104"><a href="#cb4-104"></a><span class="co"># make area sizes</span></span>
-<span id="cb4-105"><a href="#cb4-105"></a>areas &lt;-<span class="st"> </span><span class="kw">merge</span>(<span class="kw">expand.grid</span>(<span class="dt">year =</span> years, <span class="dt">zone =</span> zones), dat[, <span class="kw">c</span>(<span class="st">&quot;year&quot;</span>, <span class="st">&quot;zone&quot;</span>, <span class="st">&quot;survey_area&quot;</span>)], </span>
-<span id="cb4-106"><a href="#cb4-106"></a>    <span class="dt">all =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb4-107"><a href="#cb4-107"></a>areas &lt;-<span class="st"> </span>reshape2<span class="op">::</span><span class="kw">acast</span>(areas, year <span class="op">~</span><span class="st"> </span>zone, <span class="dt">fun.aggregate =</span> <span class="cf">function</span>(x) <span class="kw">mean</span>(x, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), </span>
-<span id="cb4-108"><a href="#cb4-108"></a>    <span class="dt">value.var =</span> <span class="st">&quot;survey_area&quot;</span>, <span class="dt">fill =</span> <span class="kw">as.numeric</span>(<span class="ot">NA</span>), <span class="dt">drop =</span> <span class="ot">FALSE</span>)</span>
-<span id="cb4-109"><a href="#cb4-109"></a></span>
-<span id="cb4-110"><a href="#cb4-110"></a>areas &lt;-<span class="st"> </span><span class="kw">apply</span>(areas, <span class="dv">2</span>, redData<span class="op">::</span>fill, <span class="dt">complete =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb4-111"><a href="#cb4-111"></a></span>
-<span id="cb4-112"><a href="#cb4-112"></a><span class="kw">stopifnot</span>(<span class="kw">all</span>(<span class="kw">colnames</span>(areas) <span class="op">==</span><span class="st"> </span>zones))</span>
-<span id="cb4-113"><a href="#cb4-113"></a></span>
-<span id="cb4-114"><a href="#cb4-114"></a><span class="co"># get modal areas per zone</span></span>
-<span id="cb4-115"><a href="#cb4-115"></a>modal_areas &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">zone =</span> dat<span class="op">$</span>zone, <span class="dt">modal_survey_area =</span> dat<span class="op">$</span>modal_survey_area)[<span class="op">!</span><span class="kw">duplicated</span>(<span class="kw">data.frame</span>(dat<span class="op">$</span>zone, </span>
-<span id="cb4-116"><a href="#cb4-116"></a>    dat<span class="op">$</span>modal_survey_area)), ]</span>
-<span id="cb4-117"><a href="#cb4-117"></a>modal_areas &lt;-<span class="st"> </span>modal_areas[<span class="kw">match</span>(zones, modal_areas<span class="op">$</span>zone), ]</span>
-<span id="cb4-118"><a href="#cb4-118"></a><span class="kw">stopifnot</span>(<span class="kw">all</span>(modal_areas<span class="op">$</span>zone <span class="op">==</span><span class="st"> </span>zones))</span>
-<span id="cb4-119"><a href="#cb4-119"></a><span class="kw">stopifnot</span>(<span class="kw">nrow</span>(modal_areas) <span class="op">==</span><span class="st"> </span>S)</span>
-<span id="cb4-120"><a href="#cb4-120"></a></span>
-<span id="cb4-121"><a href="#cb4-121"></a>modal_areas<span class="op">$</span>max_modal_survey_area &lt;-<span class="st"> </span><span class="kw">numeric</span>(S)</span>
-<span id="cb4-122"><a href="#cb4-122"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>S) {</span>
-<span id="cb4-123"><a href="#cb4-123"></a>    modal_areas<span class="op">$</span>max_modal_survey_area[i] &lt;-<span class="st"> </span><span class="kw">max</span>(<span class="kw">as.numeric</span>(<span class="kw">unlist</span>(<span class="kw">strsplit</span>(<span class="kw">as.character</span>(modal_areas[i, </span>
-<span id="cb4-124"><a href="#cb4-124"></a>        <span class="dv">2</span>]), <span class="st">&quot;;&quot;</span>))))</span>
-<span id="cb4-125"><a href="#cb4-125"></a>}</span>
-<span id="cb4-126"><a href="#cb4-126"></a></span>
-<span id="cb4-127"><a href="#cb4-127"></a><span class="co"># save regression input data</span></span>
-<span id="cb4-128"><a href="#cb4-128"></a>forest &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">N =</span> N, <span class="dt">Y =</span> Y, <span class="dt">S =</span> <span class="kw">list</span>(S.region, S.country), <span class="dt">C =</span> C, <span class="dt">R =</span> R, <span class="dt">XY =</span> X<span class="op">$</span>Y, <span class="dt">XC =</span> X<span class="op">$</span>C, <span class="dt">XS =</span> X<span class="op">$</span>S, </span>
-<span id="cb4-129"><a href="#cb4-129"></a>    <span class="dt">XR =</span> X<span class="op">$</span>R, <span class="dt">y =</span> dat<span class="op">$</span>estimate, <span class="dt">survey_area =</span> <span class="kw">t</span>(areas), <span class="dt">years =</span> year_labels, <span class="dt">regions =</span> regions, </span>
-<span id="cb4-130"><a href="#cb4-130"></a>    <span class="dt">countries =</span> countries, <span class="dt">sites =</span> zones)</span>
-<span id="cb4-131"><a href="#cb4-131"></a></span>
-<span id="cb4-132"><a href="#cb4-132"></a><span class="kw">save</span>(forest, dat, <span class="dt">file =</span> <span class="st">&quot;../data/fms.rda&quot;</span>)</span></code></pre></div>
+<span id="cb4-87"><a href="#cb4-87"></a><span class="kw">stopifnot</span>(<span class="kw">all</span>(<span class="kw">table</span>(X<span class="op">$</span>C) <span class="op">==</span><span class="st"> </span><span class="kw">table</span>(dat<span class="op">$</span>country)[countries]))</span>
+<span id="cb4-88"><a href="#cb4-88"></a><span class="kw">stopifnot</span>(<span class="kw">all</span>(<span class="kw">table</span>(X<span class="op">$</span>R) <span class="op">==</span><span class="st"> </span><span class="kw">table</span>(dat<span class="op">$</span>subregion)[regions]))</span>
+<span id="cb4-89"><a href="#cb4-89"></a><span class="kw">stopifnot</span>(<span class="kw">all</span>(<span class="kw">table</span>(X<span class="op">$</span>S) <span class="op">==</span><span class="st"> </span><span class="kw">table</span>(dat<span class="op">$</span>zone)[zones]))</span>
+<span id="cb4-90"><a href="#cb4-90"></a></span>
+<span id="cb4-91"><a href="#cb4-91"></a><span class="co"># check again</span></span>
+<span id="cb4-92"><a href="#cb4-92"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(dat)) {</span>
+<span id="cb4-93"><a href="#cb4-93"></a>    </span>
+<span id="cb4-94"><a href="#cb4-94"></a>    <span class="kw">stopifnot</span>(dat<span class="op">$</span>country[i] <span class="op">==</span><span class="st"> </span>countries[X<span class="op">$</span>C[i]])</span>
+<span id="cb4-95"><a href="#cb4-95"></a>    <span class="kw">stopifnot</span>(dat<span class="op">$</span>zone[i] <span class="op">==</span><span class="st"> </span>zones[X<span class="op">$</span>S[i]])</span>
+<span id="cb4-96"><a href="#cb4-96"></a>    <span class="kw">stopifnot</span>(dat<span class="op">$</span>subregion[i] <span class="op">==</span><span class="st"> </span>regions[X<span class="op">$</span>R[i]])</span>
+<span id="cb4-97"><a href="#cb4-97"></a>}</span>
+<span id="cb4-98"><a href="#cb4-98"></a></span>
+<span id="cb4-99"><a href="#cb4-99"></a><span class="co"># check</span></span>
+<span id="cb4-100"><a href="#cb4-100"></a><span class="kw">stopifnot</span>(<span class="kw">all.equal</span>(dat<span class="op">$</span>year, years[X<span class="op">$</span>Y]))</span>
+<span id="cb4-101"><a href="#cb4-101"></a><span class="kw">stopifnot</span>(<span class="kw">all.equal</span>(dat<span class="op">$</span>zone, zones[X<span class="op">$</span>S]))</span>
+<span id="cb4-102"><a href="#cb4-102"></a><span class="kw">stopifnot</span>(<span class="kw">all.equal</span>(dat<span class="op">$</span>country, countries[X<span class="op">$</span>C]))</span>
+<span id="cb4-103"><a href="#cb4-103"></a><span class="kw">stopifnot</span>(<span class="kw">all.equal</span>(dat<span class="op">$</span>subregion, regions[X<span class="op">$</span>R]))</span>
+<span id="cb4-104"><a href="#cb4-104"></a></span>
+<span id="cb4-105"><a href="#cb4-105"></a><span class="co"># make area sizes</span></span>
+<span id="cb4-106"><a href="#cb4-106"></a>areas &lt;-<span class="st"> </span><span class="kw">merge</span>(<span class="kw">expand.grid</span>(<span class="dt">year =</span> years, <span class="dt">zone =</span> zones), dat[, <span class="kw">c</span>(<span class="st">&quot;year&quot;</span>, <span class="st">&quot;zone&quot;</span>, <span class="st">&quot;survey_area&quot;</span>)], </span>
+<span id="cb4-107"><a href="#cb4-107"></a>    <span class="dt">all =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb4-108"><a href="#cb4-108"></a>areas &lt;-<span class="st"> </span>reshape2<span class="op">::</span><span class="kw">acast</span>(areas, year <span class="op">~</span><span class="st"> </span>zone, <span class="dt">fun.aggregate =</span> <span class="cf">function</span>(x) <span class="kw">mean</span>(x, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), </span>
+<span id="cb4-109"><a href="#cb4-109"></a>    <span class="dt">value.var =</span> <span class="st">&quot;survey_area&quot;</span>, <span class="dt">fill =</span> <span class="kw">as.numeric</span>(<span class="ot">NA</span>), <span class="dt">drop =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb4-110"><a href="#cb4-110"></a></span>
+<span id="cb4-111"><a href="#cb4-111"></a>areas &lt;-<span class="st"> </span><span class="kw">apply</span>(areas, <span class="dv">2</span>, redData<span class="op">::</span>fill, <span class="dt">complete =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb4-112"><a href="#cb4-112"></a></span>
+<span id="cb4-113"><a href="#cb4-113"></a><span class="kw">stopifnot</span>(<span class="kw">all</span>(<span class="kw">colnames</span>(areas) <span class="op">==</span><span class="st"> </span>zones))</span>
+<span id="cb4-114"><a href="#cb4-114"></a></span>
+<span id="cb4-115"><a href="#cb4-115"></a><span class="co"># get modal areas per zone</span></span>
+<span id="cb4-116"><a href="#cb4-116"></a>modal_areas &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">zone =</span> dat<span class="op">$</span>zone, <span class="dt">modal_survey_area =</span> dat<span class="op">$</span>modal_survey_area)[<span class="op">!</span><span class="kw">duplicated</span>(<span class="kw">data.frame</span>(dat<span class="op">$</span>zone, </span>
+<span id="cb4-117"><a href="#cb4-117"></a>    dat<span class="op">$</span>modal_survey_area)), ]</span>
+<span id="cb4-118"><a href="#cb4-118"></a>modal_areas &lt;-<span class="st"> </span>modal_areas[<span class="kw">match</span>(zones, modal_areas<span class="op">$</span>zone), ]</span>
+<span id="cb4-119"><a href="#cb4-119"></a><span class="kw">stopifnot</span>(<span class="kw">all</span>(modal_areas<span class="op">$</span>zone <span class="op">==</span><span class="st"> </span>zones))</span>
+<span id="cb4-120"><a href="#cb4-120"></a><span class="kw">stopifnot</span>(<span class="kw">nrow</span>(modal_areas) <span class="op">==</span><span class="st"> </span>S)</span>
+<span id="cb4-121"><a href="#cb4-121"></a></span>
+<span id="cb4-122"><a href="#cb4-122"></a>modal_areas<span class="op">$</span>max_modal_survey_area &lt;-<span class="st"> </span><span class="kw">numeric</span>(S)</span>
+<span id="cb4-123"><a href="#cb4-123"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>S) {</span>
+<span id="cb4-124"><a href="#cb4-124"></a>    modal_areas<span class="op">$</span>max_modal_survey_area[i] &lt;-<span class="st"> </span><span class="kw">max</span>(<span class="kw">as.numeric</span>(<span class="kw">unlist</span>(<span class="kw">strsplit</span>(<span class="kw">as.character</span>(modal_areas[i, </span>
+<span id="cb4-125"><a href="#cb4-125"></a>        <span class="dv">2</span>]), <span class="st">&quot;;&quot;</span>))))</span>
+<span id="cb4-126"><a href="#cb4-126"></a>}</span>
+<span id="cb4-127"><a href="#cb4-127"></a></span>
+<span id="cb4-128"><a href="#cb4-128"></a><span class="co"># save regression input data</span></span>
+<span id="cb4-129"><a href="#cb4-129"></a>forest &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">N =</span> N, <span class="dt">Y =</span> Y, <span class="dt">S =</span> <span class="kw">list</span>(S.region, S.country), <span class="dt">C =</span> C, <span class="dt">R =</span> R, <span class="dt">XY =</span> X<span class="op">$</span>Y, <span class="dt">XC =</span> X<span class="op">$</span>C, <span class="dt">XS =</span> X<span class="op">$</span>S, </span>
+<span id="cb4-130"><a href="#cb4-130"></a>    <span class="dt">XR =</span> X<span class="op">$</span>R, <span class="dt">y =</span> dat<span class="op">$</span>estimate, <span class="dt">survey_area =</span> <span class="kw">t</span>(areas), <span class="dt">years =</span> year_labels, <span class="dt">regions =</span> regions, </span>
+<span id="cb4-131"><a href="#cb4-131"></a>    <span class="dt">countries =</span> countries, <span class="dt">sites =</span> zones)</span>
+<span id="cb4-132"><a href="#cb4-132"></a></span>
+<span id="cb4-133"><a href="#cb4-133"></a><span class="kw">save</span>(forest, dat, <span class="dt">file =</span> <span class="st">&quot;../data/fms.rda&quot;</span>)</span></code></pre></div>
 </div>
 <div id="savannah" class="section level1">
 <h1>Savannah</h1>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>dat &lt;-<span class="st"> </span><span class="kw">subset</span>(dat_global, region <span class="op">==</span><span class="st"> &quot;savannah&quot;</span>)</span>
 <span id="cb5-2"><a href="#cb5-2"></a></span>
 <span id="cb5-3"><a href="#cb5-3"></a><span class="co"># Start of model</span></span>
-<span id="cb5-4"><a href="#cb5-4"></a>year_start &lt;-<span class="st"> </span><span class="kw">min</span>(dat<span class="op">$</span>year) <span class="op">-</span><span class="st"> </span>1L</span>
-<span id="cb5-5"><a href="#cb5-5"></a></span>
-<span id="cb5-6"><a href="#cb5-6"></a><span class="co"># Start of decline year_N0 &lt;- 1965</span></span></code></pre></div>
+<span id="cb5-4"><a href="#cb5-4"></a>year_start &lt;-<span class="st"> </span><span class="kw">min</span>(dat<span class="op">$</span>year) <span class="op">-</span><span class="st"> </span>1L</span></code></pre></div>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># save regression input data</span></span>
 <span id="cb6-2"><a href="#cb6-2"></a>savannah &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">N =</span> N, <span class="dt">Y =</span> Y, <span class="dt">S =</span> <span class="kw">list</span>(S.region, S.country), <span class="dt">C =</span> C, <span class="dt">R =</span> R, <span class="dt">XY =</span> X<span class="op">$</span>Y, <span class="dt">XC =</span> X<span class="op">$</span>C, </span>
 <span id="cb6-3"><a href="#cb6-3"></a>    <span class="dt">XS =</span> X<span class="op">$</span>S, <span class="dt">XR =</span> X<span class="op">$</span>R, <span class="dt">y =</span> dat<span class="op">$</span>estimate, <span class="dt">survey_area =</span> <span class="kw">t</span>(areas), <span class="dt">years =</span> year_labels, <span class="dt">regions =</span> regions, </span>
@@ -510,9 +507,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>dat &lt;-<span class="st"> </span>dat_global</span>
 <span id="cb7-2"><a href="#cb7-2"></a></span>
 <span id="cb7-3"><a href="#cb7-3"></a><span class="co"># Start of model</span></span>
-<span id="cb7-4"><a href="#cb7-4"></a>year_start &lt;-<span class="st"> </span><span class="kw">min</span>(dat<span class="op">$</span>year) <span class="op">-</span><span class="st"> </span>1L</span>
-<span id="cb7-5"><a href="#cb7-5"></a></span>
-<span id="cb7-6"><a href="#cb7-6"></a><span class="co"># Start of decline year_N0 &lt;- 1965</span></span></code></pre></div>
+<span id="cb7-4"><a href="#cb7-4"></a>year_start &lt;-<span class="st"> </span><span class="kw">min</span>(dat<span class="op">$</span>year) <span class="op">-</span><span class="st"> </span>1L</span></code></pre></div>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># save regression input data</span></span>
 <span id="cb8-2"><a href="#cb8-2"></a>global &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">N =</span> N, <span class="dt">Y =</span> Y, <span class="dt">S =</span> <span class="kw">list</span>(S.region, S.country), <span class="dt">C =</span> C, <span class="dt">R =</span> R, <span class="dt">XY =</span> X<span class="op">$</span>Y, <span class="dt">XC =</span> X<span class="op">$</span>C, <span class="dt">XS =</span> X<span class="op">$</span>S, </span>
 <span id="cb8-3"><a href="#cb8-3"></a>    <span class="dt">XR =</span> X<span class="op">$</span>R, <span class="dt">y =</span> dat<span class="op">$</span>estimate, <span class="dt">survey_area =</span> <span class="kw">t</span>(areas), <span class="dt">years =</span> year_labels, <span class="dt">regions =</span> regions, </span>

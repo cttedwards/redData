@@ -12,7 +12,7 @@
 
 <meta name="author" content="Charles T T Edwards (Wellington, New Zealand)" />
 
-<meta name="date" content="2021-04-21" />
+<meta name="date" content="2021-07-06" />
 
 <title>Data preparation for Red List Assessment</title>
 
@@ -336,7 +336,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 <h1 class="title toc-ignore">Data preparation for Red List Assessment</h1>
 <h4 class="author">Charles T T Edwards (Wellington, New Zealand)</h4>
-<h4 class="date">2021-04-21</h4>
+<h4 class="date">2021-07-06</h4>
 
 
 
@@ -344,7 +344,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <div id="preliminaries" class="section level1">
 <h1>Preliminaries</h1>
 <p>Load data and subset:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">data</span>(AED, <span class="dt">package =</span> <span class="st">&quot;redData&quot;</span>)</span>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">load</span>(<span class="st">&quot;../data/AED.rda&quot;</span>)</span>
 <span id="cb2-2"><a href="#cb2-2"></a></span>
 <span id="cb2-3"><a href="#cb2-3"></a>dat_global &lt;-<span class="st"> </span>AED[, <span class="kw">c</span>(<span class="st">&quot;region&quot;</span>, <span class="st">&quot;country&quot;</span>, <span class="st">&quot;year&quot;</span>, <span class="st">&quot;zone&quot;</span>, <span class="st">&quot;estimate&quot;</span>, <span class="st">&quot;survey_area&quot;</span>, <span class="st">&quot;modal_survey_area&quot;</span>, </span>
 <span id="cb2-4"><a href="#cb2-4"></a>    <span class="st">&quot;density&quot;</span>, <span class="st">&quot;n_surveys&quot;</span>)]</span>

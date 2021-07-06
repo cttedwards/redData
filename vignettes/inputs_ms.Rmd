@@ -7,7 +7,7 @@ output:
     fig_caption: yes
     toc: no
 vignette: >
-  %\VignetteIndexEntry{inputs}
+  %\VignetteIndexEntry{inputsManuscript}
   %\VignetteEngine{knitr::rmarkdown}
   \usepackage[utf8]{inputenc}
 ---
@@ -25,7 +25,7 @@ library(plyr)
 
 Load data and subset.
 ```{r}
-data(AED, package = "redData")
+load("../data/AED.rda")
 
 dat_global <- AED[, c('region', 'subregion', 'country', 'year', 'zone', 'estimate', 'survey_area', 'modal_survey_area', 'density', 'n_surveys')]
 ```
@@ -36,9 +36,6 @@ dat <- subset(dat_global, region == 'forest')
 
 # Start of model
 year_start <- min(dat$year) - 1L
-
-# Start of decline
-#year_N0    <- 1984
 ```
 
 ```{r}
@@ -185,9 +182,6 @@ dat <- subset(dat_global, region == 'savannah')
 
 # Start of model
 year_start <- min(dat$year) - 1L
-
-# Start of decline
-#year_N0    <- 1965
 ```
 
 ```{r, echo = FALSE}
@@ -336,9 +330,6 @@ dat <- dat_global
 
 # Start of model
 year_start <- min(dat$year) - 1L
-
-# Start of decline
-#year_N0    <- 1965
 ```
 
 ```{r, echo = FALSE}

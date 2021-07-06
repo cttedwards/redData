@@ -7,7 +7,7 @@ output:
     fig_caption: yes
     toc: no
 vignette: >
-  %\VignetteIndexEntry{inputs}
+  %\VignetteIndexEntry{inputsRedList}
   %\VignetteEngine{knitr::rmarkdown}
   \usepackage[utf8]{inputenc}
 ---
@@ -25,7 +25,7 @@ library(plyr)
 
 Load data and subset:
 ```{r}
-data(AED, package = "redData")
+load("../data/AED.rda")
 
 dat_global <- AED[, c('region', 'country', 'year', 'zone', 'estimate', 'survey_area', 'modal_survey_area', 'density', 'n_surveys')]
 

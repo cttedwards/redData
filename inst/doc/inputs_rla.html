@@ -12,7 +12,7 @@
 
 <meta name="author" content="Charles T T Edwards (Wellington, New Zealand)" />
 
-<meta name="date" content="2021-07-06" />
+<meta name="date" content="2021-07-21" />
 
 <title>Data preparation for Red List Assessment</title>
 
@@ -336,7 +336,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 <h1 class="title toc-ignore">Data preparation for Red List Assessment</h1>
 <h4 class="author">Charles T T Edwards (Wellington, New Zealand)</h4>
-<h4 class="date">2021-07-06</h4>
+<h4 class="date">2021-07-21</h4>
 
 
 
@@ -346,7 +346,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <p>Load data and subset:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">load</span>(<span class="st">&quot;../data/AED.rda&quot;</span>)</span>
 <span id="cb2-2"><a href="#cb2-2"></a></span>
-<span id="cb2-3"><a href="#cb2-3"></a>dat_global &lt;-<span class="st"> </span>AED[, <span class="kw">c</span>(<span class="st">&quot;region&quot;</span>, <span class="st">&quot;country&quot;</span>, <span class="st">&quot;year&quot;</span>, <span class="st">&quot;zone&quot;</span>, <span class="st">&quot;estimate&quot;</span>, <span class="st">&quot;survey_area&quot;</span>, <span class="st">&quot;modal_survey_area&quot;</span>, </span>
+<span id="cb2-3"><a href="#cb2-3"></a>dat_global &lt;-<span class="st"> </span>AED[, <span class="kw">c</span>(<span class="st">&quot;region&quot;</span>, <span class="st">&quot;country&quot;</span>, <span class="st">&quot;year&quot;</span>, <span class="st">&quot;zone&quot;</span>, <span class="st">&quot;estimate&quot;</span>, <span class="st">&quot;survey_area&quot;</span>, <span class="st">&quot;modal_survey_area&quot;</span>,</span>
 <span id="cb2-4"><a href="#cb2-4"></a>    <span class="st">&quot;density&quot;</span>, <span class="st">&quot;n_surveys&quot;</span>)]</span>
 <span id="cb2-5"><a href="#cb2-5"></a></span>
 <span id="cb2-6"><a href="#cb2-6"></a><span class="co"># only use data up to 2015</span></span>
@@ -398,9 +398,9 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb5-32"><a href="#cb5-32"></a></span>
 <span id="cb5-33"><a href="#cb5-33"></a><span class="co"># check that order of zones in &#39;zones_per_country&#39; matches the ordering of the zones in &#39;dat&#39;</span></span>
 <span id="cb5-34"><a href="#cb5-34"></a><span class="cf">for</span> (i <span class="cf">in</span> countries) {</span>
-<span id="cb5-35"><a href="#cb5-35"></a>    </span>
+<span id="cb5-35"><a href="#cb5-35"></a></span>
 <span id="cb5-36"><a href="#cb5-36"></a>    tmp &lt;-<span class="st"> </span><span class="kw">subset</span>(dat, country <span class="op">==</span><span class="st"> </span>i)</span>
-<span id="cb5-37"><a href="#cb5-37"></a>    </span>
+<span id="cb5-37"><a href="#cb5-37"></a></span>
 <span id="cb5-38"><a href="#cb5-38"></a>    <span class="kw">stopifnot</span>(<span class="kw">all</span>(<span class="kw">unique</span>(tmp<span class="op">$</span>zone) <span class="op">==</span><span class="st"> </span>zones_per_country[[i]]))</span>
 <span id="cb5-39"><a href="#cb5-39"></a>    <span class="kw">stopifnot</span>(<span class="kw">length</span>(<span class="kw">unique</span>(tmp<span class="op">$</span>zone)) <span class="op">==</span><span class="st"> </span>number_zones_per_country[i])</span>
 <span id="cb5-40"><a href="#cb5-40"></a>}</span>
@@ -428,7 +428,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb5-62"><a href="#cb5-62"></a></span>
 <span id="cb5-63"><a href="#cb5-63"></a><span class="co"># check again</span></span>
 <span id="cb5-64"><a href="#cb5-64"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(dat)) {</span>
-<span id="cb5-65"><a href="#cb5-65"></a>    </span>
+<span id="cb5-65"><a href="#cb5-65"></a></span>
 <span id="cb5-66"><a href="#cb5-66"></a>    <span class="kw">stopifnot</span>(dat<span class="op">$</span>country[i] <span class="op">==</span><span class="st"> </span>countries[X<span class="op">$</span>C[i]])</span>
 <span id="cb5-67"><a href="#cb5-67"></a>    <span class="kw">stopifnot</span>(dat<span class="op">$</span>zone[i] <span class="op">==</span><span class="st"> </span>zones[X<span class="op">$</span>S[i]])</span>
 <span id="cb5-68"><a href="#cb5-68"></a>}</span>
@@ -439,9 +439,9 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb5-73"><a href="#cb5-73"></a><span class="kw">stopifnot</span>(<span class="kw">all.equal</span>(dat<span class="op">$</span>country, countries[X<span class="op">$</span>C]))</span>
 <span id="cb5-74"><a href="#cb5-74"></a></span>
 <span id="cb5-75"><a href="#cb5-75"></a><span class="co"># make area sizes</span></span>
-<span id="cb5-76"><a href="#cb5-76"></a>areas &lt;-<span class="st"> </span><span class="kw">merge</span>(<span class="kw">expand.grid</span>(<span class="dt">year =</span> years, <span class="dt">zone =</span> zones), dat[, <span class="kw">c</span>(<span class="st">&quot;year&quot;</span>, <span class="st">&quot;zone&quot;</span>, <span class="st">&quot;survey_area&quot;</span>)], </span>
+<span id="cb5-76"><a href="#cb5-76"></a>areas &lt;-<span class="st"> </span><span class="kw">merge</span>(<span class="kw">expand.grid</span>(<span class="dt">year =</span> years, <span class="dt">zone =</span> zones), dat[, <span class="kw">c</span>(<span class="st">&quot;year&quot;</span>, <span class="st">&quot;zone&quot;</span>, <span class="st">&quot;survey_area&quot;</span>)],</span>
 <span id="cb5-77"><a href="#cb5-77"></a>    <span class="dt">all =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb5-78"><a href="#cb5-78"></a>areas &lt;-<span class="st"> </span>reshape2<span class="op">::</span><span class="kw">acast</span>(areas, year <span class="op">~</span><span class="st"> </span>zone, <span class="dt">fun.aggregate =</span> <span class="cf">function</span>(x) <span class="kw">mean</span>(x, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), </span>
+<span id="cb5-78"><a href="#cb5-78"></a>areas &lt;-<span class="st"> </span>reshape2<span class="op">::</span><span class="kw">acast</span>(areas, year <span class="op">~</span><span class="st"> </span>zone, <span class="dt">fun.aggregate =</span> <span class="cf">function</span>(x) <span class="kw">mean</span>(x, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</span>
 <span id="cb5-79"><a href="#cb5-79"></a>    <span class="dt">value.var =</span> <span class="st">&quot;survey_area&quot;</span>, <span class="dt">fill =</span> <span class="kw">as.numeric</span>(<span class="ot">NA</span>), <span class="dt">drop =</span> <span class="ot">FALSE</span>)</span>
 <span id="cb5-80"><a href="#cb5-80"></a></span>
 <span id="cb5-81"><a href="#cb5-81"></a>areas &lt;-<span class="st"> </span><span class="kw">apply</span>(areas, <span class="dv">2</span>, redData<span class="op">::</span>fill, <span class="dt">complete =</span> <span class="ot">TRUE</span>)</span>
@@ -449,14 +449,14 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb5-83"><a href="#cb5-83"></a><span class="kw">stopifnot</span>(<span class="kw">all</span>(<span class="kw">colnames</span>(areas) <span class="op">==</span><span class="st"> </span>zones))</span>
 <span id="cb5-84"><a href="#cb5-84"></a></span>
 <span id="cb5-85"><a href="#cb5-85"></a><span class="co"># get modal areas per zone</span></span>
-<span id="cb5-86"><a href="#cb5-86"></a>modal_areas &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">zone =</span> dat<span class="op">$</span>zone, <span class="dt">modal_survey_area =</span> dat<span class="op">$</span>modal_survey_area)[<span class="op">!</span><span class="kw">duplicated</span>(<span class="kw">data.frame</span>(dat<span class="op">$</span>zone, </span>
+<span id="cb5-86"><a href="#cb5-86"></a>modal_areas &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">zone =</span> dat<span class="op">$</span>zone, <span class="dt">modal_survey_area =</span> dat<span class="op">$</span>modal_survey_area)[<span class="op">!</span><span class="kw">duplicated</span>(<span class="kw">data.frame</span>(dat<span class="op">$</span>zone,</span>
 <span id="cb5-87"><a href="#cb5-87"></a>    dat<span class="op">$</span>modal_survey_area)), ]</span>
 <span id="cb5-88"><a href="#cb5-88"></a><span class="kw">stopifnot</span>(<span class="kw">all</span>(modal_areas<span class="op">$</span>zone <span class="op">==</span><span class="st"> </span>zones))</span>
 <span id="cb5-89"><a href="#cb5-89"></a><span class="kw">stopifnot</span>(<span class="kw">nrow</span>(modal_areas) <span class="op">==</span><span class="st"> </span><span class="kw">sum</span>(S))</span>
 <span id="cb5-90"><a href="#cb5-90"></a></span>
 <span id="cb5-91"><a href="#cb5-91"></a>modal_areas<span class="op">$</span>max_modal_survey_area &lt;-<span class="st"> </span><span class="kw">numeric</span>(<span class="kw">sum</span>(S))</span>
 <span id="cb5-92"><a href="#cb5-92"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">sum</span>(S)) {</span>
-<span id="cb5-93"><a href="#cb5-93"></a>    modal_areas<span class="op">$</span>max_modal_survey_area[i] &lt;-<span class="st"> </span><span class="kw">max</span>(<span class="kw">as.numeric</span>(<span class="kw">unlist</span>(<span class="kw">strsplit</span>(<span class="kw">as.character</span>(modal_areas[i, </span>
+<span id="cb5-93"><a href="#cb5-93"></a>    modal_areas<span class="op">$</span>max_modal_survey_area[i] &lt;-<span class="st"> </span><span class="kw">max</span>(<span class="kw">as.numeric</span>(<span class="kw">unlist</span>(<span class="kw">strsplit</span>(<span class="kw">as.character</span>(modal_areas[i,</span>
 <span id="cb5-94"><a href="#cb5-94"></a>        <span class="dv">2</span>]), <span class="st">&quot;;&quot;</span>))))</span>
 <span id="cb5-95"><a href="#cb5-95"></a>}</span>
 <span id="cb5-96"><a href="#cb5-96"></a></span>
@@ -466,7 +466,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb5-100"><a href="#cb5-100"></a><span class="co"># inputs_forest &lt;- dat save(inputs_forest, file = &#39;../data/inputs_forest.rda&#39;)</span></span>
 <span id="cb5-101"><a href="#cb5-101"></a></span>
 <span id="cb5-102"><a href="#cb5-102"></a><span class="co"># save regression input data</span></span>
-<span id="cb5-103"><a href="#cb5-103"></a>forest &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">N =</span> N, <span class="dt">Y =</span> Y, <span class="dt">S =</span> S, <span class="dt">C =</span> C, <span class="dt">XY =</span> X<span class="op">$</span>Y, <span class="dt">XC =</span> X<span class="op">$</span>C, <span class="dt">XS =</span> X<span class="op">$</span>S, <span class="dt">y =</span> dat<span class="op">$</span>density, <span class="dt">start =</span> start, </span>
+<span id="cb5-103"><a href="#cb5-103"></a>forest &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">N =</span> N, <span class="dt">Y =</span> Y, <span class="dt">S =</span> S, <span class="dt">C =</span> C, <span class="dt">XY =</span> X<span class="op">$</span>Y, <span class="dt">XC =</span> X<span class="op">$</span>C, <span class="dt">XS =</span> X<span class="op">$</span>S, <span class="dt">y =</span> dat<span class="op">$</span>density, <span class="dt">start =</span> start,</span>
 <span id="cb5-104"><a href="#cb5-104"></a>    <span class="dt">survey_area =</span> <span class="kw">t</span>(areas), <span class="dt">range_area =</span> modal_areas<span class="op">$</span>max_modal_survey_area, <span class="dt">use_relative_survey_area =</span> <span class="ot">FALSE</span>)</span>
 <span id="cb5-105"><a href="#cb5-105"></a></span>
 <span id="cb5-106"><a href="#cb5-106"></a><span class="kw">save</span>(forest, dat, <span class="dt">file =</span> <span class="st">&quot;../data/forest.rda&quot;</span>)</span></code></pre></div>
@@ -481,7 +481,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb6-6"><a href="#cb6-6"></a><span class="co"># Start of decline</span></span>
 <span id="cb6-7"><a href="#cb6-7"></a>year_N0 &lt;-<span class="st"> </span><span class="dv">1965</span></span></code></pre></div>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># save regression input data</span></span>
-<span id="cb7-2"><a href="#cb7-2"></a>savannah &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">N =</span> N, <span class="dt">Y =</span> Y, <span class="dt">S =</span> S, <span class="dt">C =</span> C, <span class="dt">XY =</span> X<span class="op">$</span>Y, <span class="dt">XC =</span> X<span class="op">$</span>C, <span class="dt">XS =</span> X<span class="op">$</span>S, <span class="dt">y =</span> dat<span class="op">$</span>density, <span class="dt">start =</span> start, </span>
+<span id="cb7-2"><a href="#cb7-2"></a>savannah &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">N =</span> N, <span class="dt">Y =</span> Y, <span class="dt">S =</span> S, <span class="dt">C =</span> C, <span class="dt">XY =</span> X<span class="op">$</span>Y, <span class="dt">XC =</span> X<span class="op">$</span>C, <span class="dt">XS =</span> X<span class="op">$</span>S, <span class="dt">y =</span> dat<span class="op">$</span>density, <span class="dt">start =</span> start,</span>
 <span id="cb7-3"><a href="#cb7-3"></a>    <span class="dt">survey_area =</span> <span class="kw">t</span>(areas), <span class="dt">range_area =</span> modal_areas<span class="op">$</span>max_modal_survey_area, <span class="dt">use_relative_survey_area =</span> <span class="ot">FALSE</span>)</span>
 <span id="cb7-4"><a href="#cb7-4"></a></span>
 <span id="cb7-5"><a href="#cb7-5"></a><span class="kw">save</span>(savannah, dat, <span class="dt">file =</span> <span class="st">&quot;../data/savannah.rda&quot;</span>)</span></code></pre></div>

@@ -335,7 +335,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 <h1 class="title toc-ignore">Cleaning script for AED data</h1>
 <h4 class="author">Charles T T Edwards</h4>
-<h4 class="date">06 July, 2021</h4>
+<h4 class="date">21 July, 2021</h4>
 
 
 
@@ -357,89 +357,89 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb3-5"><a href="#cb3-5"></a>}</span></code></pre></div>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># loop over countries</span></span>
 <span id="cb4-2"><a href="#cb4-2"></a><span class="cf">for</span> (i <span class="cf">in</span> countries) {</span>
-<span id="cb4-3"><a href="#cb4-3"></a>    </span>
+<span id="cb4-3"><a href="#cb4-3"></a></span>
 <span id="cb4-4"><a href="#cb4-4"></a>    dfr.clean &lt;-<span class="st"> </span><span class="kw">subset</span>(dat, country <span class="op">%in%</span><span class="st"> </span>i)</span>
-<span id="cb4-5"><a href="#cb4-5"></a>    </span>
+<span id="cb4-5"><a href="#cb4-5"></a></span>
 <span id="cb4-6"><a href="#cb4-6"></a>    <span class="co"># SIMPLE CHECKS FOR DATA QUALITY</span></span>
-<span id="cb4-7"><a href="#cb4-7"></a>    </span>
+<span id="cb4-7"><a href="#cb4-7"></a></span>
 <span id="cb4-8"><a href="#cb4-8"></a>    <span class="co"># remove incomplete data records</span></span>
 <span id="cb4-9"><a href="#cb4-9"></a>    dfr &lt;-<span class="st"> </span>dfr.clean</span>
 <span id="cb4-10"><a href="#cb4-10"></a>    dfr.clean &lt;-<span class="st"> </span><span class="kw">subset</span>(dfr, zone <span class="op">!=</span><span class="st"> &quot;&quot;</span>)</span>
 <span id="cb4-11"><a href="#cb4-11"></a>    dfr.clean &lt;-<span class="st"> </span><span class="kw">subset</span>(dfr.clean, <span class="op">!</span><span class="kw">is.na</span>(density))</span>
 <span id="cb4-12"><a href="#cb4-12"></a>    dfr.clean &lt;-<span class="st"> </span><span class="kw">subset</span>(dfr.clean, <span class="op">!</span><span class="kw">is.na</span>(year))</span>
 <span id="cb4-13"><a href="#cb4-13"></a>    dfr.clean &lt;-<span class="st"> </span><span class="kw">subset</span>(dfr.clean, <span class="op">!</span><span class="kw">is.na</span>(zone))</span>
-<span id="cb4-14"><a href="#cb4-14"></a>    </span>
+<span id="cb4-14"><a href="#cb4-14"></a></span>
 <span id="cb4-15"><a href="#cb4-15"></a>    tab[<span class="kw">match</span>(i, countries), <span class="dv">2</span>] &lt;-<span class="st"> </span><span class="kw">nrow</span>(dfr) <span class="op">-</span><span class="st"> </span><span class="kw">nrow</span>(dfr.clean)</span>
-<span id="cb4-16"><a href="#cb4-16"></a>    </span>
+<span id="cb4-16"><a href="#cb4-16"></a></span>
 <span id="cb4-17"><a href="#cb4-17"></a>    <span class="co"># remove duplicates</span></span>
 <span id="cb4-18"><a href="#cb4-18"></a>    dfr &lt;-<span class="st"> </span>dfr.clean</span>
 <span id="cb4-19"><a href="#cb4-19"></a>    dfr<span class="op">$</span>duplicate &lt;-<span class="st"> </span><span class="ot">FALSE</span></span>
 <span id="cb4-20"><a href="#cb4-20"></a>    dfr<span class="op">$</span>duplicate[<span class="kw">duplicated</span>(dfr[, <span class="kw">c</span>(<span class="st">&quot;zone&quot;</span>, <span class="st">&quot;country&quot;</span>, <span class="st">&quot;type&quot;</span>, <span class="st">&quot;year&quot;</span>, <span class="st">&quot;estimate&quot;</span>, <span class="st">&quot;survey_area&quot;</span>)])] &lt;-<span class="st"> </span><span class="ot">TRUE</span></span>
-<span id="cb4-21"><a href="#cb4-21"></a>    </span>
+<span id="cb4-21"><a href="#cb4-21"></a></span>
 <span id="cb4-22"><a href="#cb4-22"></a>    dfr.clean &lt;-<span class="st"> </span><span class="kw">subset</span>(dfr, <span class="op">!</span>duplicate)</span>
-<span id="cb4-23"><a href="#cb4-23"></a>    </span>
+<span id="cb4-23"><a href="#cb4-23"></a></span>
 <span id="cb4-24"><a href="#cb4-24"></a>    tab[<span class="kw">match</span>(i, countries), <span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">nrow</span>(dfr) <span class="op">-</span><span class="st"> </span><span class="kw">nrow</span>(dfr.clean)</span>
-<span id="cb4-25"><a href="#cb4-25"></a>    </span>
+<span id="cb4-25"><a href="#cb4-25"></a></span>
 <span id="cb4-26"><a href="#cb4-26"></a>    <span class="co"># remove extrapolations</span></span>
 <span id="cb4-27"><a href="#cb4-27"></a>    dfr &lt;-<span class="st"> </span>dfr.clean</span>
 <span id="cb4-28"><a href="#cb4-28"></a>    dfr.clean &lt;-<span class="st"> </span><span class="kw">subset</span>(dfr, type <span class="op">!=</span><span class="st"> &quot;EXTR&quot;</span>)</span>
-<span id="cb4-29"><a href="#cb4-29"></a>    </span>
+<span id="cb4-29"><a href="#cb4-29"></a></span>
 <span id="cb4-30"><a href="#cb4-30"></a>    tab[<span class="kw">match</span>(i, countries), <span class="dv">4</span>] &lt;-<span class="st"> </span><span class="kw">nrow</span>(dfr) <span class="op">-</span><span class="st"> </span><span class="kw">nrow</span>(dfr.clean)</span>
-<span id="cb4-31"><a href="#cb4-31"></a>    </span>
+<span id="cb4-31"><a href="#cb4-31"></a></span>
 <span id="cb4-32"><a href="#cb4-32"></a>    <span class="co"># remove low reliability surveys</span></span>
 <span id="cb4-33"><a href="#cb4-33"></a>    dfr &lt;-<span class="st"> </span>dfr.clean</span>
 <span id="cb4-34"><a href="#cb4-34"></a>    dfr.clean &lt;-<span class="st"> </span><span class="kw">subset</span>(dfr, reliability <span class="op">!=</span><span class="st"> &quot;E&quot;</span>)</span>
-<span id="cb4-35"><a href="#cb4-35"></a>    </span>
+<span id="cb4-35"><a href="#cb4-35"></a></span>
 <span id="cb4-36"><a href="#cb4-36"></a>    tab[<span class="kw">match</span>(i, countries), <span class="dv">5</span>] &lt;-<span class="st"> </span><span class="kw">nrow</span>(dfr) <span class="op">-</span><span class="st"> </span><span class="kw">nrow</span>(dfr.clean)</span>
-<span id="cb4-37"><a href="#cb4-37"></a>    </span>
+<span id="cb4-37"><a href="#cb4-37"></a></span>
 <span id="cb4-38"><a href="#cb4-38"></a>    <span class="co"># COMBINE SURVEYS FROM THE SAME ZONE IN THE SAME YEAR</span></span>
 <span id="cb4-39"><a href="#cb4-39"></a>    dfr &lt;-<span class="st"> </span>dfr.clean</span>
-<span id="cb4-40"><a href="#cb4-40"></a>    dfr.clean &lt;-<span class="st"> </span><span class="kw">ddply</span>(dfr, .(year, zone), summarize, <span class="dt">region =</span> <span class="kw">unique</span>(region), <span class="dt">subregion =</span> <span class="kw">unique</span>(subregion), <span class="dt">survey_area_shrinkage =</span> <span class="kw">unique</span>(survey_area_shrinkage), </span>
-<span id="cb4-41"><a href="#cb4-41"></a>        <span class="dt">reliability =</span> <span class="kw">max</span>(<span class="kw">as.character</span>(reliability)), <span class="dt">n_per_estimate =</span> <span class="kw">length</span>(estimate), <span class="dt">estimate =</span> <span class="kw">sum</span>(estimate), <span class="dt">survey_area =</span> <span class="kw">sum</span>(survey_area), </span>
+<span id="cb4-40"><a href="#cb4-40"></a>    dfr.clean &lt;-<span class="st"> </span><span class="kw">ddply</span>(dfr, .(year, zone), summarize, <span class="dt">region =</span> <span class="kw">unique</span>(region), <span class="dt">subregion =</span> <span class="kw">unique</span>(subregion), <span class="dt">survey_area_shrinkage =</span> <span class="kw">unique</span>(survey_area_shrinkage),</span>
+<span id="cb4-41"><a href="#cb4-41"></a>        <span class="dt">reliability =</span> <span class="kw">max</span>(<span class="kw">as.character</span>(reliability)), <span class="dt">n_per_estimate =</span> <span class="kw">length</span>(estimate), <span class="dt">estimate =</span> <span class="kw">sum</span>(estimate), <span class="dt">survey_area =</span> <span class="kw">sum</span>(survey_area),</span>
 <span id="cb4-42"><a href="#cb4-42"></a>        <span class="dt">density =</span> estimate<span class="op">/</span>survey_area)</span>
-<span id="cb4-43"><a href="#cb4-43"></a>    </span>
+<span id="cb4-43"><a href="#cb4-43"></a></span>
 <span id="cb4-44"><a href="#cb4-44"></a>    tab[<span class="kw">match</span>(i, countries), <span class="dv">6</span>] &lt;-<span class="st"> </span><span class="kw">nrow</span>(dfr) <span class="op">-</span><span class="st"> </span><span class="kw">nrow</span>(dfr.clean)</span>
-<span id="cb4-45"><a href="#cb4-45"></a>    </span>
+<span id="cb4-45"><a href="#cb4-45"></a></span>
 <span id="cb4-46"><a href="#cb4-46"></a>    <span class="co"># </span><span class="re">END</span><span class="co"> OF DATA QUALITY CHECKS</span></span>
 <span id="cb4-47"><a href="#cb4-47"></a>    dfr &lt;-<span class="st"> </span>dfr.clean</span>
-<span id="cb4-48"><a href="#cb4-48"></a>    </span>
-<span id="cb4-49"><a href="#cb4-49"></a>    <span class="co"># CHECK SURVEY AREA SIZES TO ENSURE THAT ONLY SURVEYS THAT COVER A SIMILAR AREA (KM2) PER ZONE ARE USED TO ESTIMATE THE</span></span>
-<span id="cb4-50"><a href="#cb4-50"></a>    <span class="co"># TREND IN DENSITY FOR THAT ZONE</span></span>
-<span id="cb4-51"><a href="#cb4-51"></a>    </span>
-<span id="cb4-52"><a href="#cb4-52"></a>    <span class="co"># 4. identify surveys that are 20% &#39;different&#39; from the modal area size. If any surveys in a time series are different</span></span>
-<span id="cb4-53"><a href="#cb4-53"></a>    <span class="co"># and survey is flagged as &#39;max&#39; then use max survey area for all years</span></span>
-<span id="cb4-54"><a href="#cb4-54"></a>    dfr.tmp &lt;-<span class="st"> </span><span class="kw">ddply</span>(dfr, .(zone), summarize, <span class="dt">region =</span> region, <span class="dt">year =</span> year, <span class="dt">survey_area =</span> survey_area, <span class="dt">max_survey_area =</span> <span class="kw">rep</span>(<span class="kw">max</span>(survey_area), </span>
-<span id="cb4-55"><a href="#cb4-55"></a>        <span class="kw">length</span>(survey_area)), <span class="dt">diff_from_mode_D20 =</span> <span class="op">!</span>redData<span class="op">::</span><span class="kw">trim</span>(<span class="dt">x =</span> survey_area, <span class="dt">delta =</span> <span class="fl">0.2</span>)[[<span class="st">&quot;trim&quot;</span>]], <span class="dt">modal_survey_area =</span> <span class="kw">rep</span>(redData<span class="op">::</span><span class="kw">trim</span>(<span class="dt">x =</span> survey_area), </span>
+<span id="cb4-48"><a href="#cb4-48"></a></span>
+<span id="cb4-49"><a href="#cb4-49"></a>    <span class="co"># CHECK SURVEY AREA SIZES TO ENSURE THAT ONLY SURVEYS THAT COVER A SIMILAR AREA (KM2) PER ZONE ARE USED TO ESTIMATE</span></span>
+<span id="cb4-50"><a href="#cb4-50"></a>    <span class="co"># THE TREND IN DENSITY FOR THAT ZONE</span></span>
+<span id="cb4-51"><a href="#cb4-51"></a></span>
+<span id="cb4-52"><a href="#cb4-52"></a>    <span class="co"># 4. identify surveys that are 20% &#39;different&#39; from the modal area size. If any surveys in a time series are</span></span>
+<span id="cb4-53"><a href="#cb4-53"></a>    <span class="co"># different and survey is flagged as &#39;max&#39; then use max survey area for all years</span></span>
+<span id="cb4-54"><a href="#cb4-54"></a>    dfr.tmp &lt;-<span class="st"> </span><span class="kw">ddply</span>(dfr, .(zone), summarize, <span class="dt">region =</span> region, <span class="dt">year =</span> year, <span class="dt">survey_area =</span> survey_area, <span class="dt">max_survey_area =</span> <span class="kw">rep</span>(<span class="kw">max</span>(survey_area),</span>
+<span id="cb4-55"><a href="#cb4-55"></a>        <span class="kw">length</span>(survey_area)), <span class="dt">diff_from_mode_D20 =</span> <span class="op">!</span>redData<span class="op">::</span><span class="kw">trim</span>(<span class="dt">x =</span> survey_area, <span class="dt">delta =</span> <span class="fl">0.2</span>)[[<span class="st">&quot;trim&quot;</span>]], <span class="dt">modal_survey_area =</span> <span class="kw">rep</span>(redData<span class="op">::</span><span class="kw">trim</span>(<span class="dt">x =</span> survey_area),</span>
 <span id="cb4-56"><a href="#cb4-56"></a>        <span class="dt">length =</span> <span class="kw">length</span>(survey_area)), <span class="dt">use_max =</span> <span class="kw">ifelse</span>(<span class="kw">any</span>(diff_from_mode_D20) <span class="op">&amp;</span><span class="st"> </span>survey_area_shrinkage, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>))</span>
-<span id="cb4-57"><a href="#cb4-57"></a>    </span>
+<span id="cb4-57"><a href="#cb4-57"></a></span>
 <span id="cb4-58"><a href="#cb4-58"></a>    dfr &lt;-<span class="st"> </span><span class="kw">merge</span>(dfr, dfr.tmp, <span class="dt">all.x =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb4-59"><a href="#cb4-59"></a>    </span>
-<span id="cb4-60"><a href="#cb4-60"></a>    <span class="co"># identify surveys that are 40% different and (for the revised density) have not had the survey area replaced by the max</span></span>
-<span id="cb4-61"><a href="#cb4-61"></a>    <span class="co"># and mark for deletion</span></span>
-<span id="cb4-62"><a href="#cb4-62"></a>    dfr.tmp &lt;-<span class="st"> </span><span class="kw">ddply</span>(dfr, .(zone), summarize, <span class="dt">region =</span> region, <span class="dt">year =</span> year, <span class="dt">survey_area =</span> survey_area, <span class="dt">diff_from_mode_D40 =</span> <span class="op">!</span>redData<span class="op">::</span><span class="kw">trim</span>(<span class="dt">x =</span> survey_area, </span>
-<span id="cb4-63"><a href="#cb4-63"></a>        <span class="dt">delta =</span> <span class="fl">0.4</span>)[[<span class="st">&quot;trim&quot;</span>]], <span class="dt">delete_revised =</span> <span class="kw">ifelse</span>(diff_from_mode_D40 <span class="op">&amp;</span><span class="st"> </span><span class="op">!</span>use_max, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>), <span class="dt">delete =</span> <span class="kw">ifelse</span>(diff_from_mode_D40, </span>
+<span id="cb4-59"><a href="#cb4-59"></a></span>
+<span id="cb4-60"><a href="#cb4-60"></a>    <span class="co"># identify surveys that are 40% different and (for the revised density) have not had the survey area replaced by</span></span>
+<span id="cb4-61"><a href="#cb4-61"></a>    <span class="co"># the max and mark for deletion</span></span>
+<span id="cb4-62"><a href="#cb4-62"></a>    dfr.tmp &lt;-<span class="st"> </span><span class="kw">ddply</span>(dfr, .(zone), summarize, <span class="dt">region =</span> region, <span class="dt">year =</span> year, <span class="dt">survey_area =</span> survey_area, <span class="dt">diff_from_mode_D40 =</span> <span class="op">!</span>redData<span class="op">::</span><span class="kw">trim</span>(<span class="dt">x =</span> survey_area,</span>
+<span id="cb4-63"><a href="#cb4-63"></a>        <span class="dt">delta =</span> <span class="fl">0.4</span>)[[<span class="st">&quot;trim&quot;</span>]], <span class="dt">delete_revised =</span> <span class="kw">ifelse</span>(diff_from_mode_D40 <span class="op">&amp;</span><span class="st"> </span><span class="op">!</span>use_max, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>), <span class="dt">delete =</span> <span class="kw">ifelse</span>(diff_from_mode_D40,</span>
 <span id="cb4-64"><a href="#cb4-64"></a>        <span class="ot">TRUE</span>, <span class="ot">FALSE</span>))</span>
-<span id="cb4-65"><a href="#cb4-65"></a>    </span>
+<span id="cb4-65"><a href="#cb4-65"></a></span>
 <span id="cb4-66"><a href="#cb4-66"></a>    dfr &lt;-<span class="st"> </span><span class="kw">merge</span>(dfr, dfr.tmp, <span class="dt">all.x =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb4-67"><a href="#cb4-67"></a>    </span>
+<span id="cb4-67"><a href="#cb4-67"></a></span>
 <span id="cb4-68"><a href="#cb4-68"></a>    <span class="co"># revised survey area and density</span></span>
 <span id="cb4-69"><a href="#cb4-69"></a>    dfr<span class="op">$</span>revised_survey_area &lt;-<span class="st"> </span>dfr<span class="op">$</span>survey_area</span>
 <span id="cb4-70"><a href="#cb4-70"></a>    dfr<span class="op">$</span>revised_survey_area[dfr<span class="op">$</span>use_max] &lt;-<span class="st"> </span>dfr<span class="op">$</span>max_survey_area[dfr<span class="op">$</span>use_max]</span>
-<span id="cb4-71"><a href="#cb4-71"></a>    </span>
+<span id="cb4-71"><a href="#cb4-71"></a></span>
 <span id="cb4-72"><a href="#cb4-72"></a>    dfr<span class="op">$</span>revised_density &lt;-<span class="st"> </span>dfr<span class="op">$</span>estimate<span class="op">/</span>dfr<span class="op">$</span>revised_survey_area</span>
-<span id="cb4-73"><a href="#cb4-73"></a>    </span>
+<span id="cb4-73"><a href="#cb4-73"></a></span>
 <span id="cb4-74"><a href="#cb4-74"></a>    <span class="co"># count number surveys per zone</span></span>
 <span id="cb4-75"><a href="#cb4-75"></a>    dfr.tmp &lt;-<span class="st"> </span><span class="kw">ddply</span>(dfr, .(zone), summarize, <span class="dt">n_surveys =</span> <span class="kw">length</span>(density))</span>
 <span id="cb4-76"><a href="#cb4-76"></a>    dfr &lt;-<span class="st"> </span><span class="kw">merge</span>(dfr, dfr.tmp, <span class="dt">by =</span> <span class="st">&quot;zone&quot;</span>, <span class="dt">all =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb4-77"><a href="#cb4-77"></a>    </span>
+<span id="cb4-77"><a href="#cb4-77"></a></span>
 <span id="cb4-78"><a href="#cb4-78"></a>    <span class="co"># FORMAT AND CHECKING</span></span>
-<span id="cb4-79"><a href="#cb4-79"></a>    </span>
+<span id="cb4-79"><a href="#cb4-79"></a></span>
 <span id="cb4-80"><a href="#cb4-80"></a>    <span class="co"># check</span></span>
 <span id="cb4-81"><a href="#cb4-81"></a>    <span class="kw">stopifnot</span>(<span class="kw">nrow</span>(dfr) <span class="op">==</span><span class="st"> </span><span class="kw">nrow</span>(dfr.clean))</span>
-<span id="cb4-82"><a href="#cb4-82"></a>    </span>
+<span id="cb4-82"><a href="#cb4-82"></a></span>
 <span id="cb4-83"><a href="#cb4-83"></a>    <span class="co"># save cleaned data</span></span>
 <span id="cb4-84"><a href="#cb4-84"></a>    dat_clean[[i]] &lt;-<span class="st"> </span>dfr</span>
-<span id="cb4-85"><a href="#cb4-85"></a>    </span>
+<span id="cb4-85"><a href="#cb4-85"></a></span>
 <span id="cb4-86"><a href="#cb4-86"></a>}</span></code></pre></div>
 <div id="data-quality-checks" class="section level1">
 <h1>Data quality checks</h1>
@@ -820,10 +820,10 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># for each country print summary stats and plots</span></span>
 <span id="cb5-2"><a href="#cb5-2"></a></span>
 <span id="cb5-3"><a href="#cb5-3"></a><span class="cf">for</span> (i <span class="cf">in</span> countries) {</span>
-<span id="cb5-4"><a href="#cb5-4"></a>    </span>
-<span id="cb5-5"><a href="#cb5-5"></a>    tab &lt;-<span class="st"> </span><span class="kw">ddply</span>(dat_clean[[i]], .(zone), summarize, <span class="dt">mean_area =</span> <span class="kw">round</span>(<span class="kw">mean</span>(survey_area), <span class="dv">0</span>), <span class="dt">mean_revised_area =</span> <span class="kw">round</span>(<span class="kw">mean</span>(revised_survey_area), </span>
+<span id="cb5-4"><a href="#cb5-4"></a></span>
+<span id="cb5-5"><a href="#cb5-5"></a>    tab &lt;-<span class="st"> </span><span class="kw">ddply</span>(dat_clean[[i]], .(zone), summarize, <span class="dt">mean_area =</span> <span class="kw">round</span>(<span class="kw">mean</span>(survey_area), <span class="dv">0</span>), <span class="dt">mean_revised_area =</span> <span class="kw">round</span>(<span class="kw">mean</span>(revised_survey_area),</span>
 <span id="cb5-6"><a href="#cb5-6"></a>        <span class="dv">0</span>), <span class="dt">modal_area =</span> <span class="kw">unique</span>(modal_survey_area), <span class="dt">n_surveys =</span> <span class="kw">unique</span>(n_surveys), <span class="dt">yrs_total =</span> <span class="kw">paste</span>(<span class="kw">range</span>(year), <span class="dt">collapse =</span> <span class="st">&quot;-&quot;</span>))</span>
-<span id="cb5-7"><a href="#cb5-7"></a>    </span>
+<span id="cb5-7"><a href="#cb5-7"></a></span>
 <span id="cb5-8"><a href="#cb5-8"></a>    <span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&quot;Summary data for&quot;</span>, i))</span>
 <span id="cb5-9"><a href="#cb5-9"></a>    <span class="kw">pandoc.table</span>(tab, <span class="dt">style =</span> <span class="st">&quot;rmarkdown&quot;</span>, <span class="dt">split.tables =</span> <span class="ot">Inf</span>)</span>
 <span id="cb5-10"><a href="#cb5-10"></a>}</span></code></pre></div>

@@ -12,7 +12,7 @@ vignette: >
   \usepackage[utf8]{inputenc}
 ---
 
-```{r setup, include=FALSE}
+```{r, include=FALSE}
 knitr::opts_chunk$set(fig.path = 'fig/clean-', fig.width = 6, tidy = TRUE, tidy.opts = list(blank = TRUE, width.cutoff = 120), message = FALSE, warning = FALSE, collapse = TRUE, comment = "#>")
 options(rmarkdown.html_vignette.check_title = FALSE)
 
@@ -22,7 +22,7 @@ suppressPackageStartupMessages(library(pander))
 
 ```{r, echo=TRUE}
 # load data
-load("GLOBAL_AED_1979_2016_raw.rda")
+load("../data-raw/GLOBAL_AED_1979_2016_raw.rda")
 ```
 
 ```{r}
@@ -230,13 +230,13 @@ if (any(is.na(dat$density))) stop("NA values in density")
 
 Write .csv file
 ```{r}
-write.csv(dat, file = "GLOBAL_AED_1979_2016.csv", row.names = FALSE)
+write.csv(dat, file = "../data-raw/GLOBAL_AED_1979_2016.csv", row.names = FALSE)
 ```
 
 Save to package data
 ```{r, echo = TRUE}
 # save clean data
-AED <- dat
+AED <- dat; rm(dat)
 suppressMessages(usethis::use_data(AED, overwrite = TRUE))
 ```
 

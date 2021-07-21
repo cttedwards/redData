@@ -12,20 +12,21 @@ vignette: >
   \usepackage[utf8]{inputenc}
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(fig.path = 'fig/inputs-', fig.width = 6, tidy = TRUE, tidy.opts = list(blank = TRUE, width.cutoff = 95), message = FALSE, warning = FALSE, collapse = TRUE, comment = "#>")
+```{r, include=FALSE}
+knitr::opts_chunk$set(fig.width = 6, tidy = TRUE, tidy.opts = list(blank = TRUE, width.cutoff = 95), message = FALSE, warning = FALSE, collapse = TRUE, comment = "#>")
 options(rmarkdown.html_vignette.check_title = FALSE)
 ```
 
 ```{r}
 library(plyr)
+library(redData)
 ```
 
 # Preliminaries
 
 Load data and subset.
 ```{r}
-load("../data/AED.rda")
+data(AED)
 
 dat_global <- AED[, c('region', 'subregion', 'country', 'year', 'zone', 'estimate', 'survey_area', 'modal_survey_area', 'density', 'n_surveys')]
 ```
@@ -176,8 +177,8 @@ reg_dat_forest <- list(N = N, Y = Y, S = list("global" = S, "by_region" = S.regi
 
 dat_forest <- dat
                 
-usethis::use_data(reg_dat_forest)
-usethis::use_data(dat_forest)
+usethis::use_data(reg_dat_forest, overwrite = TRUE)
+usethis::use_data(dat_forest, overwrite = TRUE)
 ```
 
 # Savannah
@@ -328,8 +329,8 @@ reg_dat_savannah <- list(N = N, Y = Y, S = list("global" = S, "by_region" = S.re
           
 dat_savannah <- dat    
 
-usethis::use_data(reg_dat_savannah)
-usethis::use_data(dat_savannah)
+usethis::use_data(reg_dat_savannah, overwrite = TRUE)
+usethis::use_data(dat_savannah, overwrite = TRUE)
 ```
 
 # Global
@@ -480,8 +481,8 @@ reg_dat_global <- list(N = N, Y = Y, S = list("global" = S, "by_region" = S.regi
 
 dat_global <- dat
                 
-usethis::use_data(reg_dat_global)
-usethis::use_data(dat_global)
+usethis::use_data(reg_dat_global, overwrite = TRUE)
+usethis::use_data(dat_global, overwrite = TRUE)
 ```
 
 

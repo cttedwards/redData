@@ -22,7 +22,7 @@ all: install clean
 	$(CD) vignettes; Rcmd Sweave inputs_rla.Rmd; Rcmd Sweave inputs_ms.Rmd
 	$(CP) ./vignettes/*.html ./inst/doc/
     
-install: $(PKG_FILES) ./inst/doc/*.html ./data/*.rda
+install: $(PKG_FILES) ./inst/doc/*.html
 	Rcmd build --no-build-vignettes .
 	Rcmd INSTALL $(PKG_NAME)_*.tar.gz
 	

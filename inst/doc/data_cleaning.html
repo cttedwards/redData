@@ -340,7 +340,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># load data</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">load</span>(<span class="st">&quot;GLOBAL_AED_1979_2016_raw.rda&quot;</span>)</span></code></pre></div>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">load</span>(<span class="st">&quot;../data-raw/GLOBAL_AED_1979_2016_raw.rda&quot;</span>)</span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># countries</span></span>
 <span id="cb2-2"><a href="#cb2-2"></a>countries &lt;-<span class="st"> </span><span class="kw">unique</span>(dat<span class="op">$</span>country)</span>
 <span id="cb2-3"><a href="#cb2-3"></a></span>
@@ -5416,11 +5416,12 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb8-4"><a href="#cb8-4"></a></span>
 <span id="cb8-5"><a href="#cb8-5"></a>dat &lt;-<span class="st"> </span><span class="kw">subset</span>(dat, zone <span class="op">%in%</span><span class="st"> </span>dfr<span class="op">$</span>zone)</span></code></pre></div>
 <p>Write .csv file</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw">write.csv</span>(dat, <span class="dt">file =</span> <span class="st">&quot;GLOBAL_AED_1979_2016.csv&quot;</span>, <span class="dt">row.names =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw">write.csv</span>(dat, <span class="dt">file =</span> <span class="st">&quot;../data-raw/GLOBAL_AED_1979_2016.csv&quot;</span>, <span class="dt">row.names =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
 <p>Save to package data</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># save clean data</span></span>
 <span id="cb10-2"><a href="#cb10-2"></a>AED &lt;-<span class="st"> </span>dat</span>
-<span id="cb10-3"><a href="#cb10-3"></a><span class="kw">suppressMessages</span>(usethis<span class="op">::</span><span class="kw">use_data</span>(AED, <span class="dt">overwrite =</span> <span class="ot">TRUE</span>))</span></code></pre></div>
+<span id="cb10-3"><a href="#cb10-3"></a><span class="kw">rm</span>(dat)</span>
+<span id="cb10-4"><a href="#cb10-4"></a><span class="kw">suppressMessages</span>(usethis<span class="op">::</span><span class="kw">use_data</span>(AED, <span class="dt">overwrite =</span> <span class="ot">TRUE</span>))</span></code></pre></div>
 </div>
 
 

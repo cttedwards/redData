@@ -340,11 +340,12 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 
 
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">library</span>(plyr)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">library</span>(plyr)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">library</span>(redData)</span></code></pre></div>
 <div id="preliminaries" class="section level1">
 <h1>Preliminaries</h1>
 <p>Load data and subset.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">load</span>(<span class="st">&quot;../data/AED.rda&quot;</span>)</span>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">data</span>(AED)</span>
 <span id="cb2-2"><a href="#cb2-2"></a></span>
 <span id="cb2-3"><a href="#cb2-3"></a>dat_global &lt;-<span class="st"> </span>AED[, <span class="kw">c</span>(<span class="st">&quot;region&quot;</span>, <span class="st">&quot;subregion&quot;</span>, <span class="st">&quot;country&quot;</span>, <span class="st">&quot;year&quot;</span>, <span class="st">&quot;zone&quot;</span>, <span class="st">&quot;estimate&quot;</span>, <span class="st">&quot;survey_area&quot;</span>,</span>
 <span id="cb2-4"><a href="#cb2-4"></a>    <span class="st">&quot;modal_survey_area&quot;</span>, <span class="st">&quot;density&quot;</span>, <span class="st">&quot;n_surveys&quot;</span>)]</span></code></pre></div>
@@ -488,8 +489,8 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb4-131"><a href="#cb4-131"></a></span>
 <span id="cb4-132"><a href="#cb4-132"></a>dat_forest &lt;-<span class="st"> </span>dat</span>
 <span id="cb4-133"><a href="#cb4-133"></a></span>
-<span id="cb4-134"><a href="#cb4-134"></a>usethis<span class="op">::</span><span class="kw">use_data</span>(reg_dat_forest)</span>
-<span id="cb4-135"><a href="#cb4-135"></a>usethis<span class="op">::</span><span class="kw">use_data</span>(dat_forest)</span></code></pre></div>
+<span id="cb4-134"><a href="#cb4-134"></a>usethis<span class="op">::</span><span class="kw">use_data</span>(reg_dat_forest, <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb4-135"><a href="#cb4-135"></a>usethis<span class="op">::</span><span class="kw">use_data</span>(dat_forest, <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 </div>
 <div id="savannah" class="section level1">
 <h1>Savannah</h1>
@@ -629,8 +630,8 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb7-5"><a href="#cb7-5"></a></span>
 <span id="cb7-6"><a href="#cb7-6"></a>dat_savannah &lt;-<span class="st"> </span>dat</span>
 <span id="cb7-7"><a href="#cb7-7"></a></span>
-<span id="cb7-8"><a href="#cb7-8"></a>usethis<span class="op">::</span><span class="kw">use_data</span>(reg_dat_savannah)</span>
-<span id="cb7-9"><a href="#cb7-9"></a>usethis<span class="op">::</span><span class="kw">use_data</span>(dat_savannah)</span></code></pre></div>
+<span id="cb7-8"><a href="#cb7-8"></a>usethis<span class="op">::</span><span class="kw">use_data</span>(reg_dat_savannah, <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb7-9"><a href="#cb7-9"></a>usethis<span class="op">::</span><span class="kw">use_data</span>(dat_savannah, <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 </div>
 <div id="global" class="section level1">
 <h1>Global</h1>
@@ -770,8 +771,8 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb10-5"><a href="#cb10-5"></a></span>
 <span id="cb10-6"><a href="#cb10-6"></a>dat_global &lt;-<span class="st"> </span>dat</span>
 <span id="cb10-7"><a href="#cb10-7"></a></span>
-<span id="cb10-8"><a href="#cb10-8"></a>usethis<span class="op">::</span><span class="kw">use_data</span>(reg_dat_global)</span>
-<span id="cb10-9"><a href="#cb10-9"></a>usethis<span class="op">::</span><span class="kw">use_data</span>(dat_global)</span></code></pre></div>
+<span id="cb10-8"><a href="#cb10-8"></a>usethis<span class="op">::</span><span class="kw">use_data</span>(reg_dat_global, <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb10-9"><a href="#cb10-9"></a>usethis<span class="op">::</span><span class="kw">use_data</span>(dat_global, <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 </div>
 
 

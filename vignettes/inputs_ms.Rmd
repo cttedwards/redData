@@ -31,6 +31,21 @@ data(AED)
 dat_global <- AED[, c('region', 'subregion', 'country', 'year', 'zone', 'estimate', 'survey_area', 'modal_survey_area', 'density', 'n_surveys')]
 ```
 
+```{r, echo = FALSE}
+# clean out two records with unusually high survey areas (keeps crashing code)
+
+# raw data record to be deleted:
+# max,2016,N,africana,Mali,Gourma extreme area,Gourma,O,D,2015,51,1287763
+loc <- which(with(dat_global, zone == "Gourma" & survey_area == "1302888"))
+dat_global[loc, c("estimate", "survey_area", "density")] <- c(253, 15125, 253 / 15125)
+loc <- which(with(AED, zone == "Gourma"))
+dat_global[loc, "n_surveys"] <- 6
+
+# raw data record to be deleted?
+#,1979,S,africana,Angola,Southern/Mupa,Southern Mupa,,,1978,7400,240024
+#loc <- which(with(dat_global, zone == "Southern Mupa" & survey_area == "240024"))
+```
+
 # Forest
 ```{r}
 dat <- subset(dat_global, region == 'forest')

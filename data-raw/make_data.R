@@ -32,6 +32,10 @@ sub_region_label <- function(x) {
 
 ################
 
+source("version_update.R")
+
+################
+
 region       <- "GLOBAL"
 data_stamp   <- "080519"
 

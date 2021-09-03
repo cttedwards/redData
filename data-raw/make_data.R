@@ -82,6 +82,6 @@ save(dat, file = paste0("../data-raw/", label(region, TRUE), "_AED_1979_2016_raw
 write.csv(dat, file = paste0("../data-raw/", label(region, TRUE), "_AED_1979_2016_raw.csv"), row.names = FALSE)
 
 # clean data and create summary
-rmarkdown::render("../data-raw/clean_data.Rmd", output_file = "data_cleaning.html", output_dir = file.path("../inst/doc"))
+rmarkdown::render("../data-raw/clean_data.Rmd")
 
 

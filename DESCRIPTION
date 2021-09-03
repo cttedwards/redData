@@ -13,7 +13,6 @@ Depends:
     R (>= 4.0.2),
 Suggests:
     Pandoc (>= 1.12.3),
-    markdown,
     rmarkdown (>= 2.6),
     knitr (>= 1.31),
     ggplot2 (>= 3.3.3),

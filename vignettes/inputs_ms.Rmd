@@ -32,7 +32,7 @@ dat_global <- AED[, c('region', 'subregion', 'country', 'year', 'zone', 'estimat
 ```
 
 ```{r, echo = FALSE}
-# clean out two records with unusually high survey areas (keeps crashing code)
+# clean out two records with unusually high survey areas
 
 # raw data record to be deleted:
 # max,2016,N,africana,Mali,Gourma extreme area,Gourma,O,D,2015,51,1287763

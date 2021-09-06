@@ -22,7 +22,7 @@ suppressPackageStartupMessages(library(pander))
 
 ```{r, echo=TRUE}
 # load data
-load("../data-raw/GLOBAL_AED_1979_2016_raw.rda")
+load("GLOBAL_AED_1979_2016_raw.rda")
 ```
 
 ```{r}
@@ -230,7 +230,7 @@ if (any(is.na(dat$density))) stop("NA values in density")
 
 Write .csv file
 ```{r}
-write.csv(dat, file = "../data-raw/GLOBAL_AED_1979_2016.csv", row.names = FALSE)
+write.csv(dat, file = "GLOBAL_AED_1979_2016.csv", row.names = FALSE)
 ```
 
 Save to package data

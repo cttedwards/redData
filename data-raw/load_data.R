@@ -43,7 +43,7 @@ message("Preparing data for ", label(region, TRUE), " region")
 
 # prepare census data
 
-dat <- read.csv(paste0("../data-raw/", label(region, TRUE), "_AED_1979_2016_FINAL_", data_stamp,".csv"))[, c('flags', 'species', 'new_region', 'country', 'input_zone2', 'type', 'reliability', 'year', 'estimate', 'survey_area')]
+dat <- read.csv(paste0(label(region, TRUE), "_AED_1979_2016_FINAL_", data_stamp,".csv"))[, c('flags', 'species', 'new_region', 'country', 'input_zone2', 'type', 'reliability', 'year', 'estimate', 'survey_area')]
 
 # check region
 message("Found regions: ", paste(unique(dat$new_region), collapse = ", "))
@@ -76,12 +76,12 @@ dat$input_zone2 <- NULL
 
 dat$density <- dat$estimate / dat$survey_area
 
-save(dat, file = paste0("../data-raw/", label(region, TRUE), "_AED_1979_2016_raw.rda"))
+save(dat, file = paste0(label(region, TRUE), "_AED_1979_2016_raw.rda"))
 
 # write csv
-write.csv(dat, file = paste0("../data-raw/", label(region, TRUE), "_AED_1979_2016_raw.csv"), row.names = FALSE)
+write.csv(dat, file = paste0(label(region, TRUE), "_AED_1979_2016_raw.csv"), row.names = FALSE)
 
 # clean data and create summary
-rmarkdown::render("../data-raw/clean_data.Rmd")
+rmarkdown::render("clean_data.Rmd")
 
 

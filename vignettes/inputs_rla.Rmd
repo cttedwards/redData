@@ -51,6 +51,11 @@ year_start <- 1974
 year_N0    <- 1984
 ```
 
+```{r, echo = FALSE}
+# for some reason this site doesn't work
+dat <- subset(dat, zone != "MPD area")
+```
+
 ```{r}
 # year labels for plotting
 dat$year_label <- dat$year
@@ -144,14 +149,9 @@ modal_areas$max_modal_survey_area <- numeric(sum(S))
 for (i in 1:sum(S)) {
     modal_areas$max_modal_survey_area[i] <- max(as.numeric(unlist(strsplit(as.character(modal_areas[i,2]), ";"))))
 }
+```
 
-# save all data
-#filename <- "inputs_forest.rda"
-#save(dat, X, years, year_labels, zones, areas, start, countries, zones_per_country, number_zones_per_country, N, Y, S, C, file = filename)
-
-#inputs_forest <- dat
-#save(inputs_forest, file = "../data/inputs_forest.rda")
-
+```{r}
 # save regression input data
 forest <- list(N = N, Y = Y, S = S, C = C, XY = X$Y, XC = X$C, XS = X$S,
                 y = dat$density, 
@@ -174,7 +174,7 @@ year_start <- 1963
 year_N0    <- 1965
 ```
 
-```{r, echo = FALSE}
+```{r}
 # year labels for plotting
 dat$year_label <- dat$year
 
@@ -267,13 +267,6 @@ modal_areas$max_modal_survey_area <- numeric(sum(S))
 for (i in 1:sum(S)) {
     modal_areas$max_modal_survey_area[i] <- max(as.numeric(unlist(strsplit(as.character(modal_areas[i,2]), ";"))))
 }
-
-# save all data
-#filename <- "inputs_savannah.rda"
-#save(dat, X, years, year_labels, zones, areas, start, countries, zones_per_country, number_zones_per_country, N, Y, S, C, file = filename)
-
-#inputs_savannah <- dat
-#save(inputs_savannah, file = "../data/inputs_savannah.rda")
 ```
 
 ```{r}

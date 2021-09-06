@@ -44,6 +44,9 @@ dat_global[loc, "n_surveys"] <- 6
 # raw data record to be deleted?
 #,1979,S,africana,Angola,Southern/Mupa,Southern Mupa,,,1978,7400,240024
 #loc <- which(with(dat_global, zone == "Southern Mupa" & survey_area == "240024"))
+
+# for some reason this site doesn't work
+dat_global <- subset(dat_global, zone != "MPD area")
 ```
 
 # Forest

@@ -7,7 +7,7 @@ The `redData` package contains the data and cleaning scripts to accompany the `r
 ## Installation
 To install the package we recommend using:
 
-`remotes::install_github('cttedwards/redData', build_vignettes = TRUE)`
+`remotes::install_github('cttedwards/redData', build_vignettes = TRUE, dependencies = TRUE)`
 
 ## Data and preparation scripts
 Data preparation scripts are available from the package vignette:

@@ -5,14 +5,14 @@ African Elephant Red List Assessment (data)  <img src='african-elephant.jpg' ali
 The `redData` R-package contains the data and cleaning scripts to accompany the `red` [package](https://github.com/cttedwards/red).
 
 ## Installation
-This package has been built using `R >= 4.1.0`. To install the package we recommend using the following command:
+This package has been built using `R >= 4.1.0`. To install the package we recommend using the `remotes` package and executing the following command from within an active R session:
 
-`R> remotes::install_github('cttedwards/redData', build_vignettes = TRUE, dependencies = TRUE)`
+`remotes::install_github('cttedwards/redData', build_vignettes = TRUE, dependencies = TRUE)`
 
 ## Data and preparation scripts
 Data preparation scripts are available from the package vignette:
-`R> vignette("inputs_rla", package = "redData")`
+`vignette("inputs_rla", package = "redData")`
 
 Cleaned data from the [African Elephant Database](http://africanelephantdatabase.org/) are available using:
-`R> data("AED", package = "redData")`
+`data("AED", package = "redData")`
 

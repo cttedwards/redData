@@ -7,7 +7,7 @@ mode <- function(x) {
     tab <- tabulate(match(x, ux))
     ux[tab == max(tab)]
 }
-#' @export
+#' @rdname mode
 is.mode <- function(x, y) {
     
     m <- mode(y)

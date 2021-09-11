@@ -418,8 +418,8 @@ max,2013,S,africana,Malawi,Nkhota Kota Wildlife Reserve,Nkhota-Kota Wildlife Res
 ,2007,S,africana,Mozambique,Cabora Bassa North,Cabora Bassa North,AS2,B,2003,1718,3708
 ,2016,S,africana,Mozambique,Cahora Bassa North,Cabora Bassa North,AS,D,2014,0,3028
 ,2013,S,africana,Mozambique,Chipanje Chetu,Chipanje Chetu,AS,B,2011,333,6641
-,2002,S,africana,Mozambique,Gilé National Reserve,Gile National Reserve,IG3,D,2002,15,2100
-,2013,S,africana,Mozambique,Gilé National Reserve,Gile National Reserve,O,D,2012,21,2456
+,2002,S,africana,Mozambique,Gile National Reserve,Gile National Reserve,IG3,D,2002,15,2100
+,2013,S,africana,Mozambique,Gile National Reserve,Gile National Reserve,O,D,2012,21,2456
 max,1995,S,africana,Mozambique,Gorongosa National Park,Gorongosa National Park,AS3,B,1994,108,2075
 max,2007,S,africana,Mozambique,Gorongosa National Park,Gorongosa National Park,IG3,D,2004,22,3689
 max,2013,S,africana,Mozambique,Gorongosa National Park,Gorongosa National Park,O,D,2012,87,3689
@@ -975,9 +975,9 @@ max,2016,S,africana,Zimbabwe,"Tuli, Maramani, Sentinel, Nottingham",Tuli Safari 
 ,2007,S,africana,DRC,Upemba National Park,Upemba,OG3,E,2005,145,11730
 ,2016,S,africana,DRC,Upemba National Park,Upemba,O,lE,2011,50,11370
 max,1979,N,africana,Cameroon,Benoue National Park,Benoue,RE,,1977,200,1800
-max,1995,N,africana,Cameroon,Benoué National Park,Benoue,IG3,D,1991,540,1800
-max,2013,N,africana,Cameroon,Bénoué National Park,Benoue,AT,A,2008,0,1979
-max,2016,N,africana,Cameroon,Bénoué National Park,Benoue,AS,B,2015,0,2444
+max,1995,N,africana,Cameroon,Benoue National Park,Benoue,IG3,D,1991,540,1800
+max,2013,N,africana,Cameroon,Benoue National Park,Benoue,AT,A,2008,0,1979
+max,2016,N,africana,Cameroon,Benoue National Park,Benoue,AS,B,2015,0,2444
 ,1979,N,africana,Cameroon,Bouba Ndjidah National Park,Bouba Ndjidah,RE,,1977,300,2200
 ,1998,N,africana,Cameroon,Bouba Ndjidah National Park,Bouba Ndjidah,IG3,D,1991,660,2200
 ,2013,N,africana,Cameroon,Bouba Ndjidah National Park,Bouba Ndjidah,AT,A,2008,232,2113
@@ -1009,8 +1009,8 @@ max,2002,N,africana,CAR,Manovo-Gounda-St. Floris Reserve Complex,Northern region
 max,2007,N,africana,CAR,Manovo Gounda - St Floris National Park,Northern region,AS2,B,2005,74,32400
 max,2013,N,africana,CAR,Northern Landscape,Northern region,AS,B,2010,0,38240
 ,1995,N,africana,CAR,Rhino Sector,Rhino Sector,AS2,E,1985,51,2700
-,2016,N,africana,Chad,Baké - Yamodo - Goré Area,Bake - Yamodo - Gore,O,lE,2015,50,3500
-,2016,N,africana,Chad,Binder Léré Wildlife Reserve Ecosystem,Binder Lere,AT,A,2014,132,1840
+,2016,N,africana,Chad,Bake - Yamodo - Gore Area,Bake - Yamodo - Gore,O,lE,2015,50,3500
+,2016,N,africana,Chad,Binder Lere Wildlife Reserve Ecosystem,Binder Lere,AT,A,2014,132,1840
 ,1995,N,africana,Chad,Batha Guera Region,Birket Fatime Bousso Batha,OG3,E,1990,500,149993
 ,2013,N,africana,Chad,Birket Fatime - Eref Area,Birket Fatime Bousso Batha,O,lE,2013,13,1884
 ,2016,N,africana,Chad,Birket Fatime - Eref Area,Birket Fatime Bousso Batha,O,D,2015,7,1884
@@ -1021,7 +1021,7 @@ max,2002,N,africana,Chad,Massenya-Mandjafa Area,Chari Baguirmi Massenya,IG3,D,20
 max,2016,N,africana,Chad,Chari Baguirmi-Mayo Kebbi Est,Chari Baguirmi Massenya,AT,A,2014,168,3312
 ,2007,N,africana,Chad,Dembo Area,Dembo,IG3,D,2002,600,2409
 ,2013,N,africana,Chad,Dembo Area,Dembo,O,lE,2009,0,2490
-,2016,N,africana,Chad,Dembo - Djéké Djéké - Sido Area,Dembo,O,lE,2015,20,2409
+,2016,N,africana,Chad,Dembo - Djeke Djeke - Sido Area,Dembo,O,lE,2015,20,2409
 ,2002,N,africana,Chad,Gagal-Yapala Area,Gagal - Yapala,IG3,D,2002,400,5098
 ,2013,N,africana,Chad,Gagal-Yapala (Kamkel) Area,Gagal - Yapala,O,D,2013,18,891
 ,2016,N,africana,Chad,Gagal - Yapala - Beinamar Area,Gagal - Yapala,O,D,2015,18,4640
@@ -1112,8 +1112,8 @@ max,1995,forest,cyclotis,Benin,W du Benin National Park,W Benin,IG3,D,1991,350,5
 max,1998,forest,cyclotis,Benin,W du Benin National Park,W Benin,IG3,D,1998,250,5020
 max,2002,forest,cyclotis,Benin,W du Benin National Park,W Benin,AS3,B,2002,156,5020
 max,2007,forest,cyclotis,Benin,W du Benin National Park,W Benin,AT2,A,2003,56,5872
-max,2013,forest,cyclotis,Benin,W du Bénin National Park,W Benin,AT,A,2012,29,2733
-max,2016,forest,cyclotis,Benin,W du Bénin National Park,W Benin,AS,B,2015,462,5872
+max,2013,forest,cyclotis,Benin,W du Benin National Park,W Benin,AT,A,2012,29,2733
+max,2016,forest,cyclotis,Benin,W du Benin National Park,W Benin,AS,B,2015,462,5872
 ,1988,forest,cyclotis,Burkina Faso,Pama,Aires L' Est,,,1981,590,1930
 ,1988,forest,cyclotis,Burkina Faso,Singou,Aires L' Est,,,1981,800,2240
 ,1995,forest,cyclotis,Burkina Faso,Pama Partial Faunal Reserve,Aires L' Est,AS2,B,1992,201,2494
@@ -1142,7 +1142,7 @@ max,2016,forest,cyclotis,Benin,W du Bénin National Park,W Benin,AS,B,2015,462,58
 ,2016,forest,cyclotis,Burkina Faso,Konkombri Hunting Zone,Konkombri,AS,B,2015,87,217
 ,1998,forest,cyclotis,Burkina Faso,Bontioli Partial & Total Faunal Reserve,Bontioli,IG3,D,1998,50,420
 ,2016,forest,cyclotis,Burkina Faso,Bontioli Partial & Total Faunal Reserve,Bontioli,O,D,2007,18,420
-,2007,forest,cyclotis,Burkina Faso,Comoé-Leraba Classified Forests,Comoe-Leraba,AT2,A,2005,3,1204
+,2007,forest,cyclotis,Burkina Faso,Comoe-Leraba Classified Forests,Comoe-Leraba,AT2,A,2005,3,1204
 ,2002,forest,cyclotis,Burkina Faso,Diefoula Classified Forest,Diefoula Classified Forest,IG3,D,1998,26,880
 ,2002,forest,cyclotis,Burkina Faso,Koakrana Hunting Zone,Koakrana,AS2,B,2000,0,229
 ,2013,forest,cyclotis,Burkina Faso,Koakrana Hunting Zone,Koakrana,AT,nE,2003,0,229
@@ -1174,7 +1174,7 @@ max,2016,forest,cyclotis,Benin,W du Bénin National Park,W Benin,AS,B,2015,462,58
 ,2013,forest,cyclotis,Burkina Faso,W du Burkina National Park,W Burkina,GS,B,2013,2161,2264
 ,2016,forest,cyclotis,Burkina Faso,W du Burkina National Park,W Burkina,AS,B,2015,1099,2511
 ,1998,forest,cyclotis,Burkina Faso,Zabre Department,Zabre Department,IG3,D,1998,150,600
-,2013,forest,cyclotis,Burkina Faso,Zabré Department,Zabre Department,O,D,2013,0,600
+,2013,forest,cyclotis,Burkina Faso,Zabre Department,Zabre Department,O,D,2013,0,600
 ,1998,forest,cyclotis,Cameroon,Abong-Mbang Forest Reserve,Abong-Mbang,OG3,E,1994,100,1540
 ,2016,forest,cyclotis,Cameroon,Abong-Mbang Forest Reserve,Abong-Mbang,O,lE,2001,0,1597
 ,1995,forest,cyclotis,Cameroon,Banyang-Mbo Forest Reserve,Banyang-Mbo,DC3,C,1993,368,426
@@ -1202,9 +1202,9 @@ max,2016,forest,cyclotis,Benin,W du Bénin National Park,W Benin,AS,B,2015,462,58
 ,1995,forest,cyclotis,Cameroon,Korup National Park,Korup,DC3,C,1993,425,1250
 ,2013,forest,cyclotis,Cameroon,Korup National Park,Korup,O,lE,2011,15,1259
 ,1995,forest,cyclotis,Cameroon,Lobeke National Park,Lobeke,DC2,C,1993,3719,1985
-,2013,forest,cyclotis,Cameroon,Lobéké National Park,Lobeke,O,D,2009,1426,1985
-,2016,forest,cyclotis,Cameroon,Lobéké National Park,Lobeke,DC,B,2015,1029,2173
-,2016,forest,cyclotis,Cameroon,Lobéké Surrounding Area,Lobeke SA,DC,B,2015,2737,6006
+,2013,forest,cyclotis,Cameroon,Lobeke National Park,Lobeke,O,D,2009,1426,1985
+,2016,forest,cyclotis,Cameroon,Lobeke National Park,Lobeke,DC,B,2015,1029,2173
+,2016,forest,cyclotis,Cameroon,Lobeke Surrounding Area,Lobeke SA,DC,B,2015,2737,6006
 ,2016,forest,cyclotis,Cameroon,"Logging Concessions 10-021, 022, 023, 029, and 030",Boumba-Bek Nki Logging Concessions,DC,B,2015,185,3678
 ,2016,forest,cyclotis,Cameroon,Mbam et Djerem National Park,Mbam et Djerem,DC,C,2009,901,1433
 ,2007,forest,cyclotis,Cameroon,Mengame Wildlife Sanctuary,Mengame and Kom,IG3,D,2003,1354,1425
@@ -1249,8 +1249,8 @@ max,2016,forest,cyclotis,CAR,Dzangha Ndoki National Park and Special Reserve,Dza
 ,2007,forest,cyclotis,Congo,Pokola Logging Concession,Kabo and Pokola,DC,B,2006,3161,4502
 ,2013,forest,cyclotis,Congo,Kabo Logging Concession,Kabo and Pokola,DC,C,2011,2135,2773
 ,2013,forest,cyclotis,Congo,Pokola Logging Concession,Kabo and Pokola,DC,C,2011,2090,4502
-,2007,forest,cyclotis,Congo,Lac Télé Community Reserve,Lac Tele,DC3,D,2004,35,4219
-,2016,forest,cyclotis,Congo,Lac Télé Community Reserve,Lac Tele,DC,B,2011,58,4219
+,2007,forest,cyclotis,Congo,Lac Tele Community Reserve,Lac Tele,DC3,D,2004,35,4219
+,2016,forest,cyclotis,Congo,Lac Tele Community Reserve,Lac Tele,DC,B,2011,58,4219
 ,1995,forest,cyclotis,Congo,Lefini Reserve,Lefini,IG3,E,1994,252,6300
 ,2016,forest,cyclotis,Congo,Lefini Reserve,Lefini,O,D,2007,6,445
 ,2016,forest,cyclotis,Congo,Lossi-Kelle,Lossi-Kelle,O,D,2006,490,5051
@@ -1269,33 +1269,33 @@ max,2016,forest,cyclotis,CAR,Dzangha Ndoki National Park and Special Reserve,Dza
 ,2016,forest,cyclotis,Congo,MPD area,MPD area,DC,D,2012,36,1139
 ,2013,forest,cyclotis,Congo,Ngombe-Pikounda-Ntokou area,Ngombe-Pikounda-Ntokou area,DC,C,2007,15109,16186
 ,2016,forest,cyclotis,Congo,Ngombe-Pikounda-Ntokou area,Ngombe-Pikounda-Ntokou area,DC,C,2014,4143,16186
-,2002,forest,cyclotis,Congo,Nouabalé-Ndoki National Park,Nouabale Ndoki,IG3,D,2001,431,3962
-,2007,forest,cyclotis,Congo,Nouabalé-Ndoki National Park,Nouabale Ndoki,DC2,C,2003,3032,4071
-,,forest,cyclotis,Congo,Nouabalé-Ndoki National Park,Nouabale Ndoki,DC2,C,2006,2261,4071
-,2016,forest,cyclotis,Congo,Nouabalé-Ndoki National Park,Nouabale Ndoki,DC,B,2011,1902,4071
+,2002,forest,cyclotis,Congo,Nouabale-Ndoki National Park,Nouabale Ndoki,IG3,D,2001,431,3962
+,2007,forest,cyclotis,Congo,Nouabale-Ndoki National Park,Nouabale Ndoki,DC2,C,2003,3032,4071
+,,forest,cyclotis,Congo,Nouabale-Ndoki National Park,Nouabale Ndoki,DC2,C,2006,2261,4071
+,2016,forest,cyclotis,Congo,Nouabale-Ndoki National Park,Nouabale Ndoki,DC,B,2011,1902,4071
 max,2002,forest,cyclotis,Congo,Odzala National Park & environs,Odzala,DC2,C,2000,18222,14539
 max,2007,forest,cyclotis,Congo,Odzala-Kokoua National Park,Odzala,DC2,C,2005,13545,13545
 max,2016,forest,cyclotis,Congo,Odzala-Kokoua National Park,Odzala,DC,C,2012,9292,13525
 ,2016,forest,cyclotis,Congo,Ogooue-Leketi,Ogooue-Leketi,DC,C,2009,200,1025
 ,1998,forest,cyclotis,Cote d'Ivoire,Abo Koamekro,Abokoamekro,GT1,A,1994,6,135
-,2016,forest,cyclotis,Cote d'Ivoire,Abokouamékro Faunal Reserve,Abokoamekro,GT,nE,2000,11,135
+,2016,forest,cyclotis,Cote d'Ivoire,Abokouamekro Faunal Reserve,Abokoamekro,GT,nE,2000,11,135
 ,1979,forest,cyclotis,Cote d'Ivoire,Azagny National Park,Azagny National Park,AT,,1979,150,200
 ,2002,forest,cyclotis,Cote d'Ivoire,Azagny National Park,Azagny National Park,AS3,nE,1987,60,190
 ,2007,forest,cyclotis,Cote d'Ivoire,Azagny National Park,Azagny National Park,DC3,C,2003,65,218
 ,2016,forest,cyclotis,Cote d'Ivoire,Azagny National Park,Azagny National Park,O,D,2013,3,218
 ,2013,forest,cyclotis,Cote d'Ivoire,Beki Bossematie Classified Forest,Beki-Bossematie,O,lE,1993,35,389
-,2016,forest,cyclotis,Cote d'Ivoire,Beki Bossematié Classified Forest,Beki-Bossematie,O,D,2013,15,389
+,2016,forest,cyclotis,Cote d'Ivoire,Beki Bossematie Classified Forest,Beki-Bossematie,O,D,2013,15,389
 ,1995,forest,cyclotis,Cote d'Ivoire,Bolo Forest,Bolo,OG3,lE,1989,5,88
 ,1979,forest,cyclotis,Cote d'Ivoire,Comoe National Park,Comoe National Park,AC,,1976,1500,11500
 ,1995,forest,cyclotis,Cote d'Ivoire,Comoe National Park,Comoe National Park,AS3,B,1989,750,19337
-,1998,forest,cyclotis,Cote d'Ivoire,Comoé National Park,Comoe National Park,IG3,D,1998,200,11500
-,2007,forest,cyclotis,Cote d'Ivoire,Comoé National Park,Comoe National Park,IG3,D,2002,10,11500
-,2013,forest,cyclotis,Cote d'Ivoire,Comoé National Park,Comoe National Park,AS,B,2010,0,11670
-,2016,forest,cyclotis,Cote d'Ivoire,Comoé National Park,Comoe National Park,O,D,2015,100,11665
+,1998,forest,cyclotis,Cote d'Ivoire,Comoe National Park,Comoe National Park,IG3,D,1998,200,11500
+,2007,forest,cyclotis,Cote d'Ivoire,Comoe National Park,Comoe National Park,IG3,D,2002,10,11500
+,2013,forest,cyclotis,Cote d'Ivoire,Comoe National Park,Comoe National Park,AS,B,2010,0,11670
+,2016,forest,cyclotis,Cote d'Ivoire,Comoe National Park,Comoe National Park,O,D,2015,100,11665
 ,1995,forest,cyclotis,Cote d'Ivoire,Davo Forest,Davo,OG3,lE,1989,20,126
 ,1995,forest,cyclotis,Cote d'Ivoire,Djambamakrou Forest,Djambamakrou,OG3,lE,1989,30,389
 ,1995,forest,cyclotis,Cote d'Ivoire,Duekoue Forest,Duekoue,OG3,lE,1989,15,536
-,2013,forest,cyclotis,Cote d'Ivoire,Duekoué Forest,Duekoue,O,lE,1997,6,536
+,2013,forest,cyclotis,Cote d'Ivoire,Duekoue Forest,Duekoue,O,lE,1997,6,536
 ,2002,forest,cyclotis,Cote d'Ivoire,Fresco Forest,Fresco Forest,IG3,nE,1991,150,2229
 ,2007,forest,cyclotis,Cote d'Ivoire,Fresco Classified Forest,Fresco Forest,OG3,E,1998,60,2229
 ,1995,forest,cyclotis,Cote d'Ivoire,Go-Bodienou Forest,Go-Bodienou,OG3,lE,1989,20,600
@@ -1305,15 +1305,15 @@ max,2016,forest,cyclotis,Congo,Odzala-Kokoua National Park,Odzala,DC,C,2012,9292
 ,2002,forest,cyclotis,Cote d'Ivoire,Haut Sassandra Classified Forest,Haut Sassandra,IG3,D,1997,30,1024
 ,1995,forest,cyclotis,Cote d'Ivoire,Keregbo Forest,Keregbo,OG3,lE,1989,30,213
 ,1979,forest,cyclotis,Cote d'Ivoire,Marahoue National Park,Marahoue,RE,,1979,150,1000
-,1998,forest,cyclotis,Cote d'Ivoire,Marahoué National Park,Marahoue,IG3,D,1991,70,1010
-,2007,forest,cyclotis,Cote d'Ivoire,Marahoué National Park,Marahoue,GD3,C,2002,159,1010
-,2016,forest,cyclotis,Cote d'Ivoire,Marahoué National Park,Marahoue,O,D,2014,0,1010
+,1998,forest,cyclotis,Cote d'Ivoire,Marahoue National Park,Marahoue,IG3,D,1991,70,1010
+,2007,forest,cyclotis,Cote d'Ivoire,Marahoue National Park,Marahoue,GD3,C,2002,159,1010
+,2016,forest,cyclotis,Cote d'Ivoire,Marahoue National Park,Marahoue,O,D,2014,0,1010
 ,1995,forest,cyclotis,Cote d'Ivoire,Mont Peko National Park,Mont Peko,OG3,lE,1989,20,340
-,2016,forest,cyclotis,Cote d'Ivoire,Mont Péko National Park,Mont Peko,O,lE,2000,40,340
+,2016,forest,cyclotis,Cote d'Ivoire,Mont Peko National Park,Mont Peko,O,lE,2000,40,340
 ,1995,forest,cyclotis,Cote d'Ivoire,Mont Sangbe National Park,Mont Sangbe,OG3,lE,1989,30,950
 ,2002,forest,cyclotis,Cote d'Ivoire,Mont Sangbe National Park,Mont Sangbe,IG3,D,2001,47,950
 ,2016,forest,cyclotis,Cote d'Ivoire,Mont Sangbe National Park,Mont Sangbe,O,lE,2013,2,950
-,2016,forest,cyclotis,Cote d'Ivoire,Mont Tingui and Kinkené,Mont Tingui and Kinkené,O,D,2015,20,515
+,2016,forest,cyclotis,Cote d'Ivoire,Mont Tingui and Kinkene,Mont Tingui and Kinkene,O,D,2015,20,515
 ,1995,forest,cyclotis,Cote d'Ivoire,Niegre Classified Forest,Niegre,OG3,lE,1989,50,1056
 ,1995,forest,cyclotis,Cote d'Ivoire,Okromodou Forest,Okromodou,OG3,lE,1989,50,945
 ,1995,forest,cyclotis,Cote d'Ivoire,Scio Classified Forest,Scio,OG3,lE,1989,30,1338
@@ -1321,12 +1321,12 @@ max,2016,forest,cyclotis,Congo,Odzala-Kokoua National Park,Odzala,DC,C,2012,9292
 ,2002,forest,cyclotis,Cote d'Ivoire,Songan-Tamin-Mabi-Yaya Classified Forest,Songan Tamin Mabi Yaya,IG3,D,1993,20,1698
 max,1979,forest,cyclotis,Cote d'Ivoire,Tai National Park,Tai,RE,,1979,2000,3500
 max,1995,forest,cyclotis,Cote d'Ivoire,Tai National Park and Ecosystem,Tai,IG3,D,1991,300,8119
-max,1998,forest,cyclotis,Cote d'Ivoire,Taï Ecosystem,Tai,IG3,D,1998,75,6410
-max,2002,forest,cyclotis,Cote d'Ivoire,Taï Ecosystem,Tai,IG3,D,2001,75,6410
-max,2007,forest,cyclotis,Cote d'Ivoire,Taï National Park,Tai,GD3,C,2002,53,6410
-max,2013,forest,cyclotis,Cote d'Ivoire,Taï National Park,Tai,DC,C,2010,189,1495
+max,1998,forest,cyclotis,Cote d'Ivoire,Tai Ecosystem,Tai,IG3,D,1998,75,6410
+max,2002,forest,cyclotis,Cote d'Ivoire,Tai Ecosystem,Tai,IG3,D,2001,75,6410
+max,2007,forest,cyclotis,Cote d'Ivoire,Tai National Park,Tai,GD3,C,2002,53,6410
+max,2013,forest,cyclotis,Cote d'Ivoire,Tai National Park,Tai,DC,C,2010,189,1495
 ,1995,forest,cyclotis,Cote d'Ivoire,Tene Forest,Tene,OG3,lE,1989,5,4
-,2013,forest,cyclotis,Cote d'Ivoire,Tené Forest,Tene,O,lE,1998,5,4
+,2013,forest,cyclotis,Cote d'Ivoire,Tene Forest,Tene,O,lE,1998,5,4
 ,2007,forest,cyclotis,Cote d'Ivoire,Tiapleu Forest,Tiapleu,OG3,lE,1989,10,380
 ,1979,forest,cyclotis,DRC,Ango-Uda,Bili-Uere,,,1976,1403,1300
 ,1979,forest,cyclotis,DRC,Compagnie Mabe Telia (North),Bili-Uere,,,1976,978,2850
@@ -1385,12 +1385,12 @@ max,2007,forest,cyclotis,DRC,Virunga (Central) National Park Sector,Virunga,AS2,
 max,2013,forest,cyclotis,DRC,Virunga (North & Central) National Park,Virunga,AS,B,2010,347,4147
 max,2016,forest,cyclotis,DRC,Virunga (North & Central) National Park,Virunga,AS,B,2014,35,4810
 ,1998,forest,cyclotis,Equatorial Guinea,Monte Alen National Park,Rio Muni,OG3,E,1995,80,800
-,2002,forest,cyclotis,Equatorial Guinea,Monte Alén National Park,Rio Muni,OG3,E,2002,300,800
-max,2007,forest,cyclotis,Equatorial Guinea,"Montes Mitra Sector, Monte Alén National Park",Rio Muni,DC3,D,2004,700,1200
+,2002,forest,cyclotis,Equatorial Guinea,Monte Alen National Park,Rio Muni,OG3,E,2002,300,800
+max,2007,forest,cyclotis,Equatorial Guinea,"Montes Mitra Sector, Monte Alen National Park",Rio Muni,DC3,D,2004,700,1200
 max,2013,forest,cyclotis,Equatorial Guinea,Rio Muni Region,Rio Muni,DC,B,2011,884,24635
-,2016,forest,cyclotis,Gabon,Plateaux Batéké National Park,Bateke,O,D,2006,301,2042
+,2016,forest,cyclotis,Gabon,Plateaux Bateke National Park,Bateke,O,D,2006,301,2042
 ,2016,forest,cyclotis,Gabon,Monts Birougou National Park and buffer zone,Birougou,DC,D,2007,216,1332
-,2007,forest,cyclotis,Gabon,Djouah Bélinga,Djouah Belinga,IG3,D,2002,4035,4339
+,2007,forest,cyclotis,Gabon,Djouah Belinga,Djouah Belinga,IG3,D,2002,4035,4339
 ,2016,forest,cyclotis,Gabon,Evaro Zone,Evaro,O,D,2006,469,2365
 ,2002,forest,cyclotis,Gabon,Gamba Reserve Complex (This was the whole lot),Gamba complex,IG3,D,1999,11205,10485
 ,2013,forest,cyclotis,Gabon,Gamba Reserve Complex (This was just a little bit of Moukalaba Doudou and a little bit of Sette cama),Gamba complex,O,D,2011,2567,4456
@@ -1398,16 +1398,16 @@ max,2013,forest,cyclotis,Equatorial Guinea,Rio Muni Region,Rio Muni,DC,B,2011,88
 ,2016,forest,cyclotis,Gabon,Ivindo National Park,Ivindo,DC,C,2009,3489,3864
 ,2016,forest,cyclotis,Gabon,Kivoro,Kivoro,DC,C,2008,900,2337
 ,2016,forest,cyclotis,Gabon,Loango National Park,Loango,DC,D,2007,1344,1510
-,1998,forest,cyclotis,Gabon,Lopé Faunal Reserve,Lope,IG3,D,1998,4500,5000
-,2002,forest,cyclotis,Gabon,Lopé Faunal Reserve & part of eastern logging concession,Lope,DC2,C,2000,8132,14360
-,2007,forest,cyclotis,Gabon,Lopé National Park,Lope,DC2,B,2005,2350,4486
-,2013,forest,cyclotis,Gabon,Lopé-Waka Corridor,Lope,DC,C,2008,4142,3000
-,2016,forest,cyclotis,Gabon,Lopé National Park,Lope,DC,B,2009,4142,4486
+,1998,forest,cyclotis,Gabon,Lope Faunal Reserve,Lope,IG3,D,1998,4500,5000
+,2002,forest,cyclotis,Gabon,Lope Faunal Reserve & part of eastern logging concession,Lope,DC2,C,2000,8132,14360
+,2007,forest,cyclotis,Gabon,Lope National Park,Lope,DC2,B,2005,2350,4486
+,2013,forest,cyclotis,Gabon,Lope-Waka Corridor,Lope,DC,C,2008,4142,3000
+,2016,forest,cyclotis,Gabon,Lope National Park,Lope,DC,B,2009,4142,4486
 ,2016,forest,cyclotis,Gabon,Mayombe Ecosystem (outside park),Mayombe,DC,D,2011,716,1682
 ,2016,forest,cyclotis,Gabon,Mayumba National Park,Mayumba,O,D,2011,80,161
-,2007,forest,cyclotis,Gabon,Minkébé buffer zone,Minkebe,DC2,C,2004,6269,2301
-,2007,forest,cyclotis,Gabon,Minkébé National Park,Minkebe,DC2,C,2004,22678,7019
-,2016,forest,cyclotis,Gabon,Minkébé National Park,Minkebe,DC,C,2013,6875,11956
+,2007,forest,cyclotis,Gabon,Minkebe buffer zone,Minkebe,DC2,C,2004,6269,2301
+,2007,forest,cyclotis,Gabon,Minkebe National Park,Minkebe,DC2,C,2004,22678,7019
+,2016,forest,cyclotis,Gabon,Minkebe National Park,Minkebe,DC,C,2013,6875,11956
 ,2016,forest,cyclotis,Gabon,Moukalaba-Doudou Central South,Moukalaba Doudou,DC,B,2011,236,609
 ,2007,forest,cyclotis,Gabon,Monts de Cristal and corridor between the two Park sectors,Mt de Cristal,IG3,D,2001,1396,2083
 ,2016,forest,cyclotis,Gabon,Monts de Cristal and Buffer zone (includes corridor plus large surrounding area),Mt de Cristal,O,D,2006,2416,5300
@@ -1444,8 +1444,8 @@ max,2013,forest,cyclotis,Equatorial Guinea,Rio Muni Region,Rio Muni,DC,B,2011,88
 max,1998,forest,cyclotis,Ghana,Red & White Volta - Morago Ecosystem,Red and White Volta - Morago,IG3,D,1996,100,1370
 max,2007,forest,cyclotis,Ghana,Red & White Volta - Morago Ecosystem,Red and White Volta - Morago,DC3,B,1998,46,1370
 max,2013,forest,cyclotis,Ghana,Red & White Volta Ecosystem,Red and White Volta - Morago,O,D,2006,0,1106
-,2013,forest,cyclotis,Guinea,Ouré Kaba,Oure Kaba,O,E,1998,57,691
-,2016,forest,cyclotis,Guinea,Ouré Kaba,Oure Kaba,O,D,2007,0,691
+,2013,forest,cyclotis,Guinea,Oure Kaba,Oure Kaba,O,E,1998,57,691
+,2016,forest,cyclotis,Guinea,Oure Kaba,Oure Kaba,O,D,2007,0,691
 max,1998,forest,cyclotis,Guinea,Massif du Ziama Strict Nature Reserve,Ziama,DC3,D,1997,108,1123
 max,2002,forest,cyclotis,Guinea,Ziama Strict Nature Reserve,Ziama,DC3,D,1998,108,1123
 max,2007,forest,cyclotis,Guinea,Ziama Strict Nature Reserve,Ziama,DC2,B,2004,214,455
@@ -1499,7 +1499,7 @@ max,2016,forest,cyclotis,Guinea,Ziama,Ziama,DC,C,2011,64,1171
 ,2002,forest,cyclotis,Sierra Leone,Gola North Forest Reserve,Gola North,OG3,lE,1987,50,242
 ,2002,forest,cyclotis,Sierra Leone,Outamba-Kilimi,Outamba Kilimi,OG3,lE,1994,50,461
 ,2016,forest,cyclotis,Sierra Leone,Outamba Kilimi National Park,Outamba Kilimi,O,D,2006,80,358
-,2013,forest,cyclotis,Togo,Abdoulayé Faunal Reserve,Abdoulaye,O,lE,2002,4,300
+,2013,forest,cyclotis,Togo,Abdoulaye Faunal Reserve,Abdoulaye,O,lE,2002,4,300
 ,1995,forest,cyclotis,Togo,Fazao/Malfacasa Game Reserve,FAZ,IG3,D,1987,45,2169
 ,2002,forest,cyclotis,Togo,Fazao-Malfakassa National Park,FAZ,IG3,D,2002,61,1920
 ,2016,forest,cyclotis,Togo,Fazao Malfakassa National Park,FAZ,O,D,2015,60,1920
@@ -1509,7 +1509,7 @@ max,2013,forest,cyclotis,Togo,Fosse aux Lions,Fosse aux Lions,O,lE,2002,0,17
 max,1995,forest,cyclotis,Togo,Keran National park,Oti Mandori Keran,IG3,D,1987,25,1646
 max,1995,forest,cyclotis,Togo,Oti Game Reserve,Oti Mandori Keran,IG3,D,1987,10,1408
 max,2002,forest,cyclotis,Togo,Oti-Mandori Faunal Reserve,Oti Mandori Keran,IG3,D,1995,35,1478
-max,2002,forest,cyclotis,Togo,Kéran National Park,Oti Mandori Keran,IG3,D,1998,16,1636
-max,2007,forest,cyclotis,Togo,Kéran National Park,Oti Mandori Keran,AT2,A,2003,0,1402
+max,2002,forest,cyclotis,Togo,Keran National Park,Oti Mandori Keran,IG3,D,1998,16,1636
+max,2007,forest,cyclotis,Togo,Keran National Park,Oti Mandori Keran,AT2,A,2003,0,1402
 max,2007,forest,cyclotis,Togo,Oti-Mandori Faunal Reserve,Oti Mandori Keran,AT2,A,2003,0,1484
-max,2016,forest,cyclotis,Togo,Oti-Kéran-Mandori Faunal Reserve,Oti Mandori Keran,O,D,2014,10,1804
+max,2016,forest,cyclotis,Togo,Oti-Keran-Mandori Faunal Reserve,Oti Mandori Keran,O,D,2014,10,1804

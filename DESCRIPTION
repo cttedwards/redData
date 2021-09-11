@@ -12,14 +12,14 @@ VignetteBuilder: knitr
 Depends:
     R (>= 4.0.2),
 Suggests:
-    Pandoc (>= 1.12.3),
     markdown,
     rmarkdown (>= 2.6),
     knitr (>= 1.31),
     ggplot2 (>= 3.3.3),
     plyr (>= 1.8.0),
     formatR (>= 1.00),
-    reshape2 (>= 1.4.0)
+    reshape2 (>= 1.4.0),
+    usethis (>= 2.0.0)
 Collate: 
     'fill.R'
     'label.R'

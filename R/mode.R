@@ -1,6 +1,6 @@
 #'
 #' @title Calculate and check modal values
-#' 
+#' @importFrom stats na.omit
 #' @export
 mode <- function(x) {
     ux  <- na.omit(unique(x) )

@@ -380,6 +380,7 @@ stopifnot(length(years) == length(year_labels))
 # zones for each country and region
 number_zones_per_country <- apply(with(dat, table(country, zone) > 0), 1, sum)
 number_zones_per_region  <- apply(with(dat, table(subregion, zone) > 0), 1, sum)
+number_zones_per_species <- apply(with(dat, table(region, zone) > 0), 1, sum)
 
 zones_per_country <- dlply(dat, .(country), summarize, zones = as.character(unique(zone)))
 zones_per_country <- lapply(zones_per_country, function(x) x[,1])
@@ -388,20 +389,30 @@ zones_per_region <- dlply(dat, .(subregion, country), summarize, zones = as.char
 zones_per_region <- lapply(names(number_zones_per_region), function(x) as.character(unlist(zones_per_region[grep(x, names(zones_per_region))])))
 names(zones_per_region) <- names(number_zones_per_region)
 
+zones_per_species <- dlply(dat, .(region, subregion, country), summarize, zones = as.character(unique(zone)))
+zones_per_species <- lapply(names(number_zones_per_species), function(x) as.character(unlist(zones_per_species[grep(x, names(zones_per_species))])))
+names(zones_per_species) <- names(number_zones_per_species)
+
 stopifnot(all(names(zones_per_country) == names(number_zones_per_country)))
 stopifnot(all(number_zones_per_country == unlist(lapply(zones_per_country, length))))
 
 stopifnot(all(names(zones_per_region) == names(number_zones_per_region)))
 stopifnot(all(number_zones_per_region == unlist(lapply(zones_per_region, length))))
 
-# order data by subregion, country then zone
-dat <- dat[order(dat$subregion, dat$country, dat$zone),]
+stopifnot(all(names(zones_per_species) == names(number_zones_per_species)))
+stopifnot(all(number_zones_per_species == unlist(lapply(zones_per_species, length))))
+
+# order data by region, subregion, country then zone
+dat <- dat[order(dat$region, dat$subregion, dat$country, dat$zone),]
 
 # extract vector of countries
 countries <- names(zones_per_country)
 
 # extract regions
 regions <- names(zones_per_region)
+
+# extract species
+species <- names(zones_per_species)
 
 # check that order of zones in 'zones_per_country' matches
 # the ordering of the zones in 'dat'
@@ -423,6 +434,16 @@ for (i in regions) {
     stopifnot(length(unique(tmp$zone)) == number_zones_per_region[i])
 }
 
+# check that order of zones in 'zones_per_region' matches
+# the ordering of the zones in 'dat'
+for (i in species) {
+    
+    tmp <- subset(dat, region == i)
+    
+    stopifnot(all(unique(tmp$zone) == zones_per_species[[i]]))
+    stopifnot(length(unique(tmp$zone)) == number_zones_per_species[i])
+}
+
 # extract ordered vector of zones
 zones <- unique(dat$zone)
 
@@ -432,13 +453,17 @@ Y <- length(years)
 S <- length(zones)
 S.country <- as.integer(number_zones_per_country)
 S.region  <- as.integer(number_zones_per_region)
+S.species <- as.integer(number_zones_per_species)
 C <- length(countries)
 R <- length(regions)
+G <- length(species)
 
 stopifnot(length(S.country) == C)
 stopifnot(length(S.region)  == R)
+stopifnot(length(S.species)  == G)
 stopifnot(sum(S.country) == length(zones))
 stopifnot(sum(S.region)  == length(zones))
+stopifnot(sum(S.species)  == length(zones))
 
 # look-up vectors for survey data
 X   <- list()
@@ -446,10 +471,12 @@ X$Y <- match(dat$year, years)
 X$S <- match(dat$zone, zones)
 X$C <- match(dat$country, countries)
 X$R <- match(dat$subregion, regions)
+X$G <- match(dat$region, species)
 
 # check numbers match
 stopifnot(all(table(X$C) == table(dat$country)[countries]))
 stopifnot(all(table(X$R) == table(dat$subregion)[regions]))
+stopifnot(all(table(X$G) == table(dat$region)[species]))
 stopifnot(all(table(X$S) == table(dat$zone)[zones]))
 
 # check again
@@ -458,6 +485,7 @@ for (i in 1:nrow(dat)) {
     stopifnot(dat$country[i]   == countries[X$C[i]])
     stopifnot(dat$zone[i]      == zones[X$S[i]])
     stopifnot(dat$subregion[i] == regions[X$R[i]])
+    stopifnot(dat$region[i] == species[X$G[i]])
 }
 
 # check
@@ -465,6 +493,7 @@ stopifnot(all(dat$year == years[X$Y]))
 stopifnot(all(dat$zone == zones[X$S]))
 stopifnot(all(dat$country == countries[X$C]))
 stopifnot(all(dat$subregion == regions[X$R]))
+stopifnot(all(dat$region == species[X$G]))
 
 # make area sizes
 areas <- merge(expand.grid(year = years, zone = zones), dat[, c('year', 'zone', 'survey_area')], all = TRUE)
@@ -488,12 +517,13 @@ for (i in 1:S) {
 
 ```{r}
 # save regression input data
-reg_dat_global <- list(N = N, Y = Y, S = list("global" = S, "by_region" = S.region, "by_country" = S.country), C = C, R = R, 
-                       XY = X$Y, XC = X$C, XS = X$S, XR = X$R,
+reg_dat_global <- list(N = N, Y = Y, S = list("global" = S, "by_region" = S.region, "by_country" = S.country, "by_species" = S.species), C = C, R = R, G = G,
+                       XY = X$Y, XC = X$C, XS = X$S, XR = X$R, XG = X$G,
                        y = dat$estimate, 
                        survey_area = t(areas),
                        years = year_labels,
                        regions = regions,
+                       species = species,
                        countries = countries,
                        sites = zones)
 

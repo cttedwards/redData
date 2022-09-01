@@ -1,4 +1,4 @@
 .onAttach <- function(libname, pkgname)
 {
-    packageStartupMessage("redData version 1.0.9 (2022-03-25 16:24:02)")
+    packageStartupMessage("redData version 1.1.0 (2022-09-01 12:27:16)")
 }

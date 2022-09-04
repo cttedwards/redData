@@ -377,22 +377,57 @@ year_labels <- year_start:max(dat$year_label)
 
 stopifnot(length(years) == length(year_labels))
 
-# zones for each country and region
-number_zones_per_country <- apply(with(dat, table(country, zone) > 0), 1, sum)
-number_zones_per_region  <- apply(with(dat, table(subregion, zone) > 0), 1, sum)
-number_zones_per_species <- apply(with(dat, table(region, zone) > 0), 1, sum)
-
+# zones for each country / region / species
 zones_per_country <- dlply(dat, .(country), summarize, zones = as.character(unique(zone)))
 zones_per_country <- lapply(zones_per_country, function(x) x[,1])
 
-zones_per_region <- dlply(dat, .(subregion, country), summarize, zones = as.character(unique(zone)))
-zones_per_region <- lapply(names(number_zones_per_region), function(x) as.character(unlist(zones_per_region[grep(x, names(zones_per_region))])))
-names(zones_per_region) <- names(number_zones_per_region)
+zones_per_region <- dlply(dat, .(subregion), summarize, zones = as.character(unique(zone)))
+zones_per_region <- lapply(zones_per_region, function(x) x[,1])
 
-zones_per_species <- dlply(dat, .(region, subregion, country), summarize, zones = as.character(unique(zone)))
-zones_per_species <- lapply(names(number_zones_per_species), function(x) as.character(unlist(zones_per_species[grep(x, names(zones_per_species))])))
-names(zones_per_species) <- names(number_zones_per_species)
+zones_per_species <- dlply(dat, .(region), summarize, zones = as.character(unique(zone)))
+zones_per_species <- lapply(zones_per_species, function(x) x[,1])
 
+# order zones by species / region / country
+# (assign regions / species / country to each zone)
+dfr <- data.frame(species = NA, region = NA, country = NA, zone = as.character(unlist(zones_per_country)))
+
+for (i in names(zones_per_country)) {
+  
+  dfr$country[dfr$zone %in% zones_per_country[[i]]] <- i
+}
+
+for (i in names(zones_per_region)) {
+  
+  dfr$region[dfr$zone %in% zones_per_region[[i]]] <- i
+}
+
+for (i in names(zones_per_species)) {
+  
+  dfr$species[dfr$zone %in% zones_per_species[[i]]] <- i
+}
+
+# (manual ordering)
+dfr <- split(dfr, ~ species)
+dfr[["savannah"]] <- split(dfr[["savannah"]], ~ region)
+dfr[["savannah"]] <- rbind(dfr[["savannah"]][["east"]], dfr[["savannah"]][["north"]], dfr[["savannah"]][["south"]])
+dfr <- rbind(dfr[["forest"]], dfr[["savannah"]])
+
+# (create ordered factors)
+dfr$species <- factor(dfr$species, levels = unique(dfr$species))
+dfr$region  <- factor(dfr$region,  levels = unique(dfr$region))
+dfr$country <- factor(dfr$country, levels = unique(dfr$country))
+
+# re-create ordered vectors
+zones_per_species <- lapply(split(dfr, ~ species), function(x) x$zone)
+zones_per_region  <- lapply(split(dfr, ~ region),  function(x) x$zone)
+zones_per_country <- lapply(split(dfr, ~ country), function(x) x$zone)
+
+# count zones
+number_zones_per_country <- unlist(lapply(zones_per_country, length))
+number_zones_per_region  <- unlist(lapply(zones_per_region,  length))
+number_zones_per_species <- unlist(lapply(zones_per_species, length))
+
+# checks
 stopifnot(all(names(zones_per_country) == names(number_zones_per_country)))
 stopifnot(all(number_zones_per_country == unlist(lapply(zones_per_country, length))))
 
@@ -402,50 +437,56 @@ stopifnot(all(number_zones_per_region == unlist(lapply(zones_per_region, length)
 stopifnot(all(names(zones_per_species) == names(number_zones_per_species)))
 stopifnot(all(number_zones_per_species == unlist(lapply(zones_per_species, length))))
 
-# order data by region, subregion, country then zone
-dat <- dat[order(dat$region, dat$subregion, dat$country, dat$zone),]
+# extract vector of zones
+zones <- dfr$zone
 
 # extract vector of countries
-countries <- names(zones_per_country)
+countries <- levels(dfr$country)
 
 # extract regions
-regions <- names(zones_per_region)
+regions <- levels(dfr$region)
 
 # extract species
-species <- names(zones_per_species)
+species <- levels(dfr$species)
 
-# check that order of zones in 'zones_per_country' matches
-# the ordering of the zones in 'dat'
+# checks
+stopifnot(all(countries == names(zones_per_country)))
+stopifnot(all(regions   == names(zones_per_region)))
+stopifnot(all(species   == names(zones_per_species)))
+
+# check all zones present
 for (i in countries) {
     
     tmp <- subset(dat, country == i)
     
-    stopifnot(all(unique(tmp$zone) == zones_per_country[[i]]))
+    stopifnot(all(tmp$zone %in% zones_per_country[[i]]))
     stopifnot(length(unique(tmp$zone)) == number_zones_per_country[i])
 }
 
-# check that order of zones in 'zones_per_region' matches
-# the ordering of the zones in 'dat'
+# check all zones present
 for (i in regions) {
     
     tmp <- subset(dat, subregion == i)
     
-    stopifnot(all(unique(tmp$zone) == zones_per_region[[i]]))
+    stopifnot(all(tmp$zone %in% zones_per_region[[i]]))
     stopifnot(length(unique(tmp$zone)) == number_zones_per_region[i])
 }
 
-# check that order of zones in 'zones_per_region' matches
-# the ordering of the zones in 'dat'
+# check all zones present
 for (i in species) {
     
     tmp <- subset(dat, region == i)
     
-    stopifnot(all(unique(tmp$zone) == zones_per_species[[i]]))
+    stopifnot(all(tmp$zone %in% zones_per_species[[i]]))
     stopifnot(length(unique(tmp$zone)) == number_zones_per_species[i])
 }
 
-# extract ordered vector of zones
-zones <- unique(dat$zone)
+# order raw data by (now ordered) zones
+surveys_per_zone <- table(dat$zone)
+dat <- dat[order(match(dat$zone, zones)),]
+
+# check
+stopifnot(all(table(dat$zone) == surveys_per_zone))
 
 # dimensions
 N <- nrow(dat)
